@@ -1,13 +1,18 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navigation from './components/Navigation';
+import Routing from './components/Routing';
 
-function App() {
+export default function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <div>Hello</div>
-      </header>
+      <Router>
+        <header>
+          <Navigation />
+        </header>
+        <Routing />
+      </Router>
     </div>
   );
 }
-
-export default App;
