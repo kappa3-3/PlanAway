@@ -9,7 +9,7 @@ export default function Navigation() {
         <li>
           <Link
             to="/"
-            className="navigation-link"
+            className="navigation-link navigation-page"
           >
             Home
           </Link>
@@ -17,7 +17,7 @@ export default function Navigation() {
         <li>
           <Link
             to="/myplanaway"
-            className="navigation-link"
+            className="navigation-link navigation-page"
           >
             MyPlanAway
           </Link>

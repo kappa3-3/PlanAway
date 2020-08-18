@@ -13,13 +13,17 @@ ul {
   border: 1px solid beige;
 }
 
-.navigation-auth {
-  float: right !important;
+li {
+  font-family: 'Signika', sans-serif;
 }
 
-li {
+
+.navigation-auth {
+  float: right;
+}
+
+.navigation-page {
   float: left;
-  font-family: 'Signika', sans-serif;
 }
 
 li .navigation-link {
