@@ -24,9 +24,10 @@ export default function SignUp() {
   const [password, setPassword] = useState();
 
   const classes = useStyles();
+  const user = [name, surname, email, password];
   return (
     <div>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form onSubmit={user} className={classes.root} noValidate autoComplete="off">
         <TextField
           required
           id="outlined-required"

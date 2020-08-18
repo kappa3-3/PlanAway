@@ -22,9 +22,10 @@ export default function Login() {
   const [password, setPassword] = useState();
 
   const classes = useStyles();
+  const user = [email, password];
   return (
     <div>
-      <form className={classes.root} noValidate autoComplete="off">
+      <form onSubmit={user} className={classes.root} noValidate autoComplete="off">
 
         <TextField
           required
