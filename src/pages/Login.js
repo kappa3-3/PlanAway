@@ -20,13 +20,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
+  const [isUser, setIsUser] = useState(true);
   const classes = useStyles();
-  const user = [email, password];
+
+  const handleResponse = (res) => {
+    if (res === null) setIsUser(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/users', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    }).then((res) => res.json())
+      .then((res) => handleResponse(res));
+  };
+
   return (
     <div>
-      <form onSubmit={user} className={classes.root} noValidate autoComplete="off">
-
+      <form className={classes.root} noValidate autoComplete="off">
         <TextField
           required
           id="outlined-required"
@@ -48,9 +60,12 @@ export default function Login() {
           color="secondary"
           className={classes.button}
           endIcon={<FlightTakeOffIcon />}
+          type="submit"
+          onClick={(event) => handleSubmit(event)}
         >
           Log In
         </Button>
+        <span className={!isUser ? 'access-denied' : ''} />
       </form>
       <div>
         <span>Don&apos;t have an account yet?</span>
