@@ -5,6 +5,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+import './Search.css';
 
 const Search = () => {
   const [departureDate, setDepartureDate] = useState(new Date());
@@ -17,7 +18,7 @@ const Search = () => {
     setReturnDate(date);
   };
   return (
-    <div>
+    <div className="search-component">
       <form>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">

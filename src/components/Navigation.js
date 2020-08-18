@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Navigation.css';
 
 export default function Navigation() {
   return (
@@ -24,7 +25,7 @@ export default function Navigation() {
         <li>
           <Link
             to="/account/login"
-            className="navigation-link"
+            className="navigation-link navigation-auth"
           >
             LogIn
           </Link>
@@ -32,7 +33,7 @@ export default function Navigation() {
         <li>
           <Link
             to="/account/signup"
-            className="navigation-link"
+            className="navigation-link navigation-auth"
           >
             SignUp
           </Link>
