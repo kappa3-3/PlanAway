@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff'
+import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { Link } from 'react-router-dom';
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   const classes = useStyles();
   return (
     <div>
@@ -30,6 +31,7 @@ export default function Login() {
           id="outlined-required"
           label="Email address"
           variant="outlined"
+          onChange={(event) => setEmail(event.target.value)}
         />
         <TextField
           required
@@ -38,6 +40,7 @@ export default function Login() {
           type="password"
           autoComplete="current-password"
           variant="outlined"
+          onChange={(event) => setPassword(event.target.value)}
         />
         <Button
           variant="contained"
@@ -49,7 +52,7 @@ export default function Login() {
         </Button>
       </form>
       <div>
-        <span>Don't have an account yet?</span>
+        <span>Don&apos;t have an account yet?</span>
         <span>
           <Link to="/account/signup">
             Sign Up
@@ -57,5 +60,5 @@ export default function Login() {
         </span>
       </div>
     </div>
-  )
+  );
 }
