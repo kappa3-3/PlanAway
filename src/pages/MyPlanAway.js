@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const MyPlanAway = () => {
-  const [isLogged, setIsLogged] = useState(false);
+function MyPlanAway({ auth }) {
   return (
     <div>
-      {isLogged ? <h1>Hello it is the MyPlanAway page</h1> : <Redirect to='/account/login' />}
+      {auth
+        ? <h1>Hello it is the MyPlanAway page</h1>
+        : <Redirect to="/account/login" />}
     </div>
-  )
+  );
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.isAuth,
+});
+
+MyPlanAway.propTypes = {
+  auth: PropTypes.bool.isRequired,
 };
 
-export default MyPlanAway;
+export default connect(mapStateToProps)(MyPlanAway);
