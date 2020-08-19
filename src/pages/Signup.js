@@ -68,7 +68,7 @@ export default function SignUp() {
           <span>
             <Link to="/account/login">
               Log In
-          </Link>
+            </Link>
           </span>
         </p>
         <Button

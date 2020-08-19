@@ -82,11 +82,8 @@ function Login({ approved, denied }) {
           onClick={(event) => handleSubmit(event)}
         >
           <span>Log In</span>
-          
         </Button>
       </form>
-      <div>
-      </div>
       <span className={!isUser ? 'access-denied' : ''} />
     </div>
   );
