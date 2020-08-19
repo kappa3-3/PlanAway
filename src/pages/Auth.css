@@ -1,0 +1,17 @@
+.auth-wrapper {
+  position: relative;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 70%)
+}
+
+.access-denied:after {
+  content: 'The email address you typed in doesn\'t match the password';
+  padding: 0.5rem 0;
+  width: calc(100% - 4px);
+  position: absolute;
+  color: #C51162;
+  background-color: rgba(255, 255, 255, 70%);
+  top: -5vh;
+  left: 0;
+  border: 2px solid #C51162;
+}

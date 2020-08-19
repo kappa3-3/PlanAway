@@ -13,7 +13,9 @@ export default function App() {
         <header>
           <Navigation />
         </header>
-        <Routing />
+        <div className="content-wrapper">
+          <Routing />
+        </div>
       </Router>
       <Footer />
     </div>
