@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { Link } from 'react-router-dom';
+import './Auth.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,38 +27,50 @@ export default function SignUp() {
   const classes = useStyles();
   const user = [name, surname, email, password];
   return (
-    <div>
+    <div className="auth-wrapper">
       <form onSubmit={user} className={classes.root} noValidate autoComplete="off">
-        <TextField
-          required
-          id="outlined-required"
-          label="First Name"
-          variant="outlined"
-          onChange={(event) => setName(event.target.value)}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Last Name"
-          variant="outlined"
-          onChange={(event) => setSurname(event.target.value)}
-        />
-        <TextField
-          required
-          id="outlined-required"
-          label="Email address"
-          variant="outlined"
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <TextField
-          required
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="outlined"
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <div>
+          <TextField
+            required
+            id="outlined-required"
+            label="First Name"
+            variant="outlined"
+            onChange={(event) => setName(event.target.value)}
+          />
+          <TextField
+            required
+            id="outlined-required"
+            label="Last Name"
+            variant="outlined"
+            onChange={(event) => setSurname(event.target.value)}
+          />
+        </div>
+        <div>
+          <TextField
+            required
+            id="outlined-required"
+            label="Email address"
+            variant="outlined"
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <p>
+          <span>Already have an account?</span>
+          <span>
+            <Link to="/account/login">
+              Log In
+          </Link>
+          </span>
+        </p>
         <Button
           variant="contained"
           color="secondary"
@@ -67,14 +80,6 @@ export default function SignUp() {
           Sign Up
         </Button>
       </form>
-      <div>
-        <span>Already have an account?</span>
-        <span>
-          <Link to="/account/login">
-            Log In
-          </Link>
-        </span>
-      </div>
     </div>
   );
 }

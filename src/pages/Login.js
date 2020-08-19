@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { Link } from 'react-router-dom';
+import './Auth.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,24 +38,33 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="auth-wrapper">
       <form className={classes.root} noValidate autoComplete="off">
-        <TextField
-          required
-          id="outlined-required"
-          label="Email address"
-          variant="outlined"
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <TextField
-          required
-          id="outlined-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="outlined"
-          onChange={(event) => setPassword(event.target.value)}
-        />
+        <div>
+          <TextField
+            required
+            id="outlined-required"
+            label="Email address"
+            variant="outlined"
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            variant="outlined"
+            onChange={(event) => setPassword(event.target.value)}
+          />
+
+        </div>
+        <p>
+          <span>Don&apos;t have an account yet?</span>
+          <Link to="/account/signup">
+            Sign Up
+          </Link>
+        </p>
         <Button
           variant="contained"
           color="secondary"
@@ -63,18 +73,13 @@ export default function Login() {
           type="submit"
           onClick={(event) => handleSubmit(event)}
         >
-          Log In
+          <span>Log In</span>
+          
         </Button>
-        <span className={!isUser ? 'access-denied' : ''} />
       </form>
       <div>
-        <span>Don&apos;t have an account yet?</span>
-        <span>
-          <Link to="/account/signup">
-            Sign Up
-          </Link>
-        </span>
       </div>
+      <span className={!isUser ? 'access-denied' : ''} />
     </div>
   );
 }

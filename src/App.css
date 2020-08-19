@@ -10,3 +10,10 @@ body {
   min-width: 100vw;
   min-height: 100vh;
 }
+
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+}
