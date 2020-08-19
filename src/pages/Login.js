@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as authActions from '../actions/auth';
 import './Auth.css';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login({ approved, denied }) {
+function Login({ approved, denied, auth }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isUser, setIsUser] = useState(true);
@@ -82,19 +82,23 @@ function Login({ approved, denied }) {
           onClick={(event) => handleSubmit(event)}
         >
           <span>Log In</span>
-          
         </Button>
       </form>
-      <div>
-      </div>
-      <span className={!isUser ? 'access-denied' : ''} />
+      {auth
+        ? <Redirect to="/account" />
+        : <span className={!isUser ? 'access-denied' : ''} />}
     </div>
   );
 }
 
+const mapStateToProps = (state) => ({
+  auth: state.isAuth,
+});
+
 Login.propTypes = {
+  auth: PropTypes.bool.isRequired,
   approved: PropTypes.func.isRequired,
   denied: PropTypes.func.isRequired,
 };
 
-export default connect(null, { ...authActions })(Login);
+export default connect(mapStateToProps, { ...authActions })(Login);

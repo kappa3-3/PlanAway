@@ -1,4 +1,4 @@
-const isAuthReducer = (state = false, action) => {
+const isAuthReducer = (state = true, action) => {
   switch (action.type) {
     case 'APPROVED':
       return (
