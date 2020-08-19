@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,76 +21,79 @@ function Profile({ userData }) {
   const classes = useStyles();
   return (
     <div>
-      <form className={classes.root} noValidate autoComplete="off">
-        {edit
-          ? (
-            <div>
-              <TextField
-                required
-                id="outlined-required"
-                label="Required"
-                defaultValue="Hello World"
-                variant="outlined"
-              />
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                type="submit"
-                onClick={() => setEdit(false)}
-              >
-                <span>Save changes</span>
-              </Button>
-            </div>
-          )
-          : (
-            <div>
-              <TextField
-                id="standard-read-only-input"
-                label="first name"
-                defaultValue={userData.first_name}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id="standard-read-only-input"
-                label="last name"
-                defaultValue={userData.last_name}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id="standard-read-only-input"
-                label="email address"
-                defaultValue={userData.email_address}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-              <TextField
-                id="standard-number"
-                label="vacation days"
-                type="number"
-                defaultValue={userData.vacation_days}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                endIcon={<EditIcon />}
-                type="submit"
-                onClick={() => setEdit(true)}
-              >
-                <span>Edit</span>
-              </Button>
-            </div>
-          )}
-      </form>
+      {userData !== null
+        ? (
+          <form className={classes.root} noValidate autoComplete="off">
+            {edit
+              ? (
+                <div>
+                  <TextField
+                    required
+                    id="outlined-required"
+                    label="Required"
+                    defaultValue="Hello World"
+                    variant="outlined"
+                  />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    type="submit"
+                    onClick={() => setEdit(false)}
+                  >
+                    <span>Save changes</span>
+                  </Button>
+                </div>
+              )
+              : (
+                <div>
+                  <TextField
+                    id="standard-read-only-input"
+                    label="first name"
+                    defaultValue={userData.first_name}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                  <TextField
+                    id="standard-read-only-input"
+                    label="last name"
+                    defaultValue={userData.last_name}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                  <TextField
+                    id="standard-read-only-input"
+                    label="email address"
+                    defaultValue={userData.email_address}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                  <TextField
+                    id="standard-number"
+                    label="vacation days"
+                    type="number"
+                    defaultValue={userData.vacation_days}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    endIcon={<EditIcon />}
+                    type="submit"
+                    onClick={() => setEdit(true)}
+                  >
+                    <span>Edit</span>
+                  </Button>
+                </div>
+              )}
+          </form>
+        ) : <Redirect to="/" />}
     </div>
   );
 }
