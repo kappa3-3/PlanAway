@@ -7,6 +7,7 @@ import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as authActions from '../actions/auth';
+import * as userData from '../actions/userData';
 import './Auth.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login({ approved, denied, auth }) {
+function Login({ approved, denied, auth, setUserData }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isUser, setIsUser] = useState(true);
@@ -32,6 +33,7 @@ function Login({ approved, denied, auth }) {
       setIsUser(false);
       denied();
     } else {
+      setUserData(res);
       approved();
     }
   };
@@ -99,6 +101,7 @@ Login.propTypes = {
   auth: PropTypes.bool.isRequired,
   approved: PropTypes.func.isRequired,
   denied: PropTypes.func.isRequired,
+  setUserData: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { ...authActions })(Login);
+export default connect(mapStateToProps, { ...authActions, ...userData })(Login);
