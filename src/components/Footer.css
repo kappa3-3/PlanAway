@@ -1,0 +1,7 @@
+.footer_wrapper {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  color: rgb(173, 172, 172);
+}

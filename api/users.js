@@ -1,37 +1,45 @@
 /* eslint-disable */
 const { MongoClient } = require('mongodb');
+const dbuser = process.env.MONGO_USER;
+const password = process.env.MONGO_PASS;
+const db = process.env.MONGO_DB;
 
-async function getData() {
-  const uri =
-    `mongodb+srv://DodosMob:dodomobpass1@pacluster.1truh.mongodb.net/usersdb?retryWrites=true&w=majority`;
+async function getData(user) {
+  const uri = `mongodb+srv://${dbuser}:${password}@pacluster.1truh.mongodb.net/${db}?retryWrites=true&w=majority`;
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
-
   try {
     await client.connect();
-    const test = await client
+    const result = await client
       .db('usersdb')
       .collection('users')
-      .findOne({ first_name: 'Marcus' });
-    return test;
+      .findOne({ email_address: user.email, password: user.password });
+    return result;
   } catch (err) {
-    console.log(err); // output to netlify function log
-  } finally {
+    console.log(err);
     await client.close();
   }
 }
 
-exports.handler = async function (event, context) {
+exports.handler = async function (event, context) { 
   try {
-    const data = await getData();
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ id: data._id })
-    };
+    const data = await getData(JSON.parse(event.body));
+    if ( data !== null) {
+      const {email_address, first_name, last_name, vacation_days, _id} = data;
+      return {
+        statusCode: 200,
+        body: JSON.stringify({_id, email_address, first_name, last_name, vacation_days })
+      };
+    } else {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(data)
+      };
+    }   
   } catch (err) {
-    console.log(err); // output to netlify function log
+      console.log(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ msg: err.message })
