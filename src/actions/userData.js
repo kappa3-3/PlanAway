@@ -3,7 +3,6 @@ export const setUserData = (data) => ({
   data,
 });
 
-export const removeUserData = (id) => ({
+export const removeUserData = () => ({
   type: 'REMOVE_USER_DATA',
-  id,
 });

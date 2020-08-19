@@ -4,7 +4,7 @@ const userDataReducer = (state = [], action) => {
       return ({ ...action.data });
     case 'REMOVE_USER_DATA':
       return (
-        false
+        null
       );
     default: return state;
   }
