@@ -4,11 +4,12 @@ body {
   margin: 0;
   text-align: center;
   font-family: 'Signika', sans-serif;
-  background-color: rgb(228, 228, 228);
+  /* background-color: rgb(228, 228, 228);
   background-image: url('./assets/images/image.png');
-  background-size: cover;
+  background-size: cover; */
   min-width: 100vw;
   min-height: 100vh;
+  background: rgb(228, 228, 228) url('./assets/images/image.png') no-repeat left top / cover;
 }
 
 .content-wrapper {
