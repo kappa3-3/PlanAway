@@ -27,7 +27,7 @@ const ProfileIcon = () => {
   return (
     <Link
       className={`${classes.root} navigation-auth`}
-      to="/account"
+      to="/profile"
     >
       <Avatar
         className={classes.orange}

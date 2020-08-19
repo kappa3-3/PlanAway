@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -14,92 +16,79 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Profile({ userData }) {
+  const [edit, setEdit] = useState(false);
   const classes = useStyles();
   return (
     <div>
       <form className={classes.root} noValidate autoComplete="off">
-        <div>
-          <TextField required id="standard-required" label="Required" defaultValue="Hello World" />
-          <TextField disabled id="standard-disabled" label="Disabled" defaultValue="Hello World" />
-          <TextField
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-          />
-          <TextField
-            id="standard-read-only-input"
-            label="Read Only"
-            defaultValue="Hello World"
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-          <TextField
-            id="standard-number"
-            label="Number"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
-          <TextField id="standard-search" label="Search field" type="search" />
-          <TextField
-            id="standard-helperText"
-            label="Helper text"
-            defaultValue="Default Value"
-            helperText="Some important text"
-          />
-        </div>
-        <div>
-          <TextField
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Hello World"
-            variant="outlined"
-          />
-          <TextField
-            disabled
-            id="outlined-disabled"
-            label="Disabled"
-            defaultValue="Hello World"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-read-only-input"
-            label="Read Only"
-            defaultValue="Hello World"
-            InputProps={{
-              readOnly: true,
-            }}
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-number"
-            label="Number"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-          />
-          <TextField id="outlined-search" label="Search field" type="search" variant="outlined" />
-          <TextField
-            id="outlined-helperText"
-            label="Helper text"
-            defaultValue="Default Value"
-            helperText="Some important text"
-            variant="outlined"
-          />
-        </div>
+        {edit
+          ? (
+            <div>
+              <TextField
+                required
+                id="outlined-required"
+                label="Required"
+                defaultValue="Hello World"
+                variant="outlined"
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                type="submit"
+                onClick={() => setEdit(false)}
+              >
+                <span>Save changes</span>
+              </Button>
+            </div>
+          )
+          : (
+            <div>
+              <TextField
+                id="standard-read-only-input"
+                label="first name"
+                defaultValue={userData.first_name}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                id="standard-read-only-input"
+                label="last name"
+                defaultValue={userData.last_name}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                id="standard-read-only-input"
+                label="email address"
+                defaultValue={userData.email_address}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                id="standard-number"
+                label="vacation days"
+                type="number"
+                defaultValue={userData.vacation_days}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                endIcon={<EditIcon />}
+                type="submit"
+                onClick={() => setEdit(true)}
+              >
+                <span>Edit</span>
+              </Button>
+            </div>
+          )}
       </form>
     </div>
   );
