@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login({ approved, denied, auth, setUserData }) {
+function Login({
+  approved, denied, auth, setUserData,
+}) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isUser, setIsUser] = useState(true);
@@ -87,7 +89,7 @@ function Login({ approved, denied, auth, setUserData }) {
         </Button>
       </form>
       {auth
-        ? <Redirect to="/account" />
+        ? <Redirect to="/profile" />
         : <span className={!isUser ? 'access-denied' : ''} />}
     </div>
   );
