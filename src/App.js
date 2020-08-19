@@ -8,9 +8,9 @@ import './App.css';
 export default function App() {
 
   return (
-    <div className="App">
+    <div>
       <Router>
-        <header>
+        <header className="navbar">
           <Navigation />
         </header>
         <div className="content-wrapper">

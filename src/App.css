@@ -17,3 +17,7 @@ body {
   justify-content: center;
   height: 85vh;
 }
+
+.navbar {
+  height: fit-content;
+}

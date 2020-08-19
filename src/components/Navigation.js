@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ProfileIcon from './ProfileIcon';
+import LogOut from './LogOut';
 import './Navigation.css';
 
 function Navigation({ auth }) {
@@ -28,12 +29,7 @@ function Navigation({ auth }) {
         {auth
           ? (
             <li>
-              <button
-                type="button"
-                className="navigation-link navigation-auth"
-              >
-                Log Out
-              </button>
+              <LogOut />
             </li>
           ) : (
             <li>
