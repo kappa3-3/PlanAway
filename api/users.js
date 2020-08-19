@@ -23,7 +23,7 @@ async function getData(user) {
   }
 }
 
-exports.handler = async function (event, context) { 
+exports.handler = async function (event, context) {
   try {
     const data = await getData(JSON.parse(event.body));
     if ( data !== null) {
