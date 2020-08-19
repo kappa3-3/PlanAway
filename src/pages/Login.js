@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as authActions from '../actions/auth';
 import './Auth.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -18,14 +21,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+function Login({ approved, denied }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isUser, setIsUser] = useState(true);
   const classes = useStyles();
 
   const handleResponse = (res) => {
-    if (res === null) setIsUser(false);
+    if (res === null) {
+      setIsUser(false);
+      denied();
+    } else {
+      approved();
+    }
   };
 
   const handleSubmit = (e) => {
@@ -83,3 +91,10 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  approved: PropTypes.func.isRequired,
+  denied: PropTypes.func.isRequired,
+};
+
+export default connect(null, { ...authActions })(Login);
