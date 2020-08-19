@@ -86,7 +86,7 @@ const Search = () => {
             endIcon={<FlightTakeOffIcon />}
             type="submit"
           >
-            Log In
+            Search Flights
           </Button>
         </MuiPickersUtilsProvider>
       </form>
