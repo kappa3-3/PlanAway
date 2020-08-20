@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import './Search.css';
-import zIndex from '@material-ui/core/styles/zIndex';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,22 +25,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = () => {
-  const [departureDate, setDepartureDate] = useState("2020-12-01");
-  const [returnDate, setReturnDate] = useState("2020-12-09");
+  const [departureDate, setDepartureDate] = useState();
+  const [returnDate, setReturnDate] = useState();
   const [places, setPlaces] = useState([]);
-  const [fromValue, setFromValue] = useState(null);
-  const [fromPlaceId, setFromPlaceId] = useState("AMD-sky");
-  const [toValue, setToValue] = useState(null);
-  const [toPlaceId, setToPlaceId] = useState("ADD-sky");
+  const [fromPlaceId, setFromPlaceId] = useState();
+  const [toPlaceId, setToPlaceId] = useState();
 
   const classes = useStyles();
 
   const formatDate = (date) => {
-    const day = date.getDate();
-    const month = date.getMonth();
+    const day = (`0${date.getDate()}`).slice(-2);
+    const month = (`0${(date.getMonth() + 1)}`).slice(-2);
     const year = date.getFullYear();
     return `${year}-${month}-${day}`;
-  }
+  };
 
   const handleDepartureChange = (date) => {
     setDepartureDate(formatDate(date));
@@ -58,7 +55,7 @@ const Search = () => {
       body: place,
     }).then((res) => res.json())
       .then((res) => setPlaces(res.Places));
-  }
+  };
 
   const defaultProps = {
     options: places,
@@ -69,10 +66,12 @@ const Search = () => {
     e.preventDefault();
     fetch('/.netlify/functions/destinations', {
       method: 'POST',
-      body: JSON.stringify({ departureDate, returnDate, fromPlaceId, toPlaceId }),
+      body: JSON.stringify({
+        departureDate, returnDate, fromPlaceId, toPlaceId,
+      }),
     }).then((res) => res.json())
       .then((res) => console.log(res));
-  }
+  };
 
   return (
     <div className="search-component">
@@ -84,40 +83,48 @@ const Search = () => {
                 options={defaultProps.options}
                 getOptionLabel={defaultProps.getOptionLabel}
                 id="controlled-demo"
-                value={fromValue}
+                value={null}
                 onChange={(event, newValue) => {
                   if (newValue) {
                     setFromPlaceId(newValue.PlaceId);
                   }
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="From" margin="normal" onChange={(event) => {
-                    console.log(event.target.value);
-                    if (event.target.value.length === 3) {
-                      fetchPlaces(event, event.target.value)
-                    }
-                  }} />
+                  <TextField
+                    {...params}
+                    label="From"
+                    margin="normal"
+                    onChange={(event) => {
+                      if (event.target.value.length === 3) {
+                        fetchPlaces(event, event.target.value);
+                      }
+                    }}
+                  />
                 )}
               />
             </div>
-            <div className="search-input-width search-input-padding-middle">
+            <div className="search-input-width">
               <Autocomplete
                 options={defaultProps.options}
                 getOptionLabel={defaultProps.getOptionLabel}
                 id="controlled-demo"
-                value={toValue}
+                value={null}
                 onChange={(event, newValue) => {
                   if (newValue) {
                     setToPlaceId(newValue.PlaceId);
                   }
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="To" margin="normal" onChange={(event) => {
-                    console.log(event.target.value);
-                    if (event.target.value.length === 3) {
-                      fetchPlaces(event, event.target.value)
-                    }
-                  }} />
+                  <TextField
+                    {...params}
+                    label="To"
+                    margin="normal"
+                    onChange={(event) => {
+                      if (event.target.value.length === 3) {
+                        fetchPlaces(event, event.target.value);
+                      }
+                    }}
+                  />
                 )}
               />
             </div>
