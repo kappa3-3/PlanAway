@@ -1,4 +1,5 @@
 const unirest = require("unirest");
+const key = process.env.SKYSCANNER_KEY;
 
 async function getPlace(place) {
   try {
@@ -10,7 +11,7 @@ async function getPlace(place) {
 
     req.headers({
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-      "x-rapidapi-key": process.env.SKYSCANNER_KEY,
+      "x-rapidapi-key": key,
       "useQueryString": true
     });
 

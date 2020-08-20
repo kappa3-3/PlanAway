@@ -30,9 +30,9 @@ const Search = () => {
   const [returnDate, setReturnDate] = useState("2020-12-09");
   const [places, setPlaces] = useState([]);
   const [fromValue, setFromValue] = useState(null);
-  const [fromPlaceId, setFromPlaceId] = useState(null);
+  const [fromPlaceId, setFromPlaceId] = useState("AMD-sky");
   const [toValue, setToValue] = useState(null);
-  const [toPlaceId, setToPlaceId] = useState(null);
+  const [toPlaceId, setToPlaceId] = useState("ADD-sky");
 
   const classes = useStyles();
 
@@ -51,13 +51,13 @@ const Search = () => {
     setReturnDate(formatDate(date));
   };
 
-  const fetchPlace = (e, place) => {
+  const fetchPlaces = (e, place) => {
     e.preventDefault();
     fetch('/.netlify/functions/places', {
       method: 'POST',
       body: place,
-     }).then((res) => res.json())
-      .then((res) => setPlaces(res));
+    }).then((res) => res.json())
+      .then((res) => setPlaces(res.Places));
   }
 
   const defaultProps = {
@@ -86,30 +86,38 @@ const Search = () => {
                 id="controlled-demo"
                 value={fromValue}
                 onChange={(event, newValue) => {
-                  event.target.value.length === 3 ? fetchPlaces(event.target.value) : '';
                   if (newValue) {
                     setFromPlaceId(newValue.PlaceId);
                   }
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="From" margin="normal" />
+                  <TextField {...params} label="From" margin="normal" onChange={(event) => {
+                    console.log(event.target.value);
+                    if (event.target.value.length === 3) {
+                      fetchPlaces(event, event.target.value)
+                    }
+                  }} />
                 )}
               />
             </div>
-            <div className="search-input-width">
+            <div className="search-input-width search-input-padding-middle">
               <Autocomplete
                 options={defaultProps.options}
                 getOptionLabel={defaultProps.getOptionLabel}
                 id="controlled-demo"
                 value={toValue}
                 onChange={(event, newValue) => {
-                  event.target.value.length === 3 ? fetchPlaces(event.target.value) : '';
                   if (newValue) {
                     setToPlaceId(newValue.PlaceId);
                   }
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="To" margin="normal" />
+                  <TextField {...params} label="To" margin="normal" onChange={(event) => {
+                    console.log(event.target.value);
+                    if (event.target.value.length === 3) {
+                      fetchPlaces(event, event.target.value)
+                    }
+                  }} />
                 )}
               />
             </div>
