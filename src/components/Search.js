@@ -25,13 +25,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = () => {
-  const [departureDate, setDepartureDate] = useState(new Date());
-  const [returnDate, setReturnDate] = useState(new Date());
+  const [departureDate, setDepartureDate] = useState("2020-12-01");
+  const [returnDate, setReturnDate] = useState("2020-12-09");
   const [places, setPlaces] = useState([]);
   const [fromValue, setFromValue] = useState(null);
   const [fromPlaceId, setFromPlaceId] = useState(null);
   const [toValue, setToValue] = useState(null);
   const [toPlaceId, setToPlaceId] = useState(null);
+
   const classes = useStyles();
 
   const handleDepartureChange = (date) => {
@@ -43,11 +44,9 @@ const Search = () => {
   };
 
   const fetchPlaces = () => {
-    const result = ['aaa', 'aaab', 'aaac', 'aaad'];
-    setPlaces(result);
-  };
+   
 
-  const placesArray = [];
+  };
 
   const filterPlaces = (input) => {
     if (input.length > 3) {
@@ -57,9 +56,18 @@ const Search = () => {
   };
 
   const defaultProps = {
-    options: placesArray,
+    options: places,
     getOptionLabel: (place) => `${place.PlaceName}, ${place.CountryName}`,
   };
+
+  const searchDestinations = (e) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/destinations', {
+      method: 'POST',
+      body: JSON.stringify({ departureDate, returnDate, fromPlaceId, toPlaceId }),
+    }).then((res) => res.json())
+      .then((res) => console.log(res));
+  }
 
   return (
     <div className="search-component">
@@ -140,6 +148,7 @@ const Search = () => {
               className={classes.button}
               endIcon={<FlightTakeOffIcon />}
               type="submit"
+              onClick={(e) => searchDestinations(e)}
             >
               Search Flights
             </Button>
