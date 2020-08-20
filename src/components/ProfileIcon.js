@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { pink } from '@material-ui/core/colors';
 import { Link } from 'react-router-dom';
-import './ProfileIcon.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -12,17 +13,13 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
+  pink: {
+    color: theme.palette.getContrastText(pink[500]),
+    backgroundColor: pink[500],
   },
 }));
 
-const ProfileIcon = () => {
+const ProfileIcon = ({ userData }) => {
   const classes = useStyles();
   return (
     <Link
@@ -30,12 +27,21 @@ const ProfileIcon = () => {
       to="/profile"
     >
       <Avatar
-        className={classes.orange}
+        className={classes.pink}
       >
-        N
+        {userData.first_name.substring(0, 1)}
+        {userData.last_name.substring(0, 1)}
       </Avatar>
     </Link>
   );
 };
 
-export default ProfileIcon;
+const mapStateToProps = (state) => ({
+  userData: state.userData,
+});
+
+ProfileIcon.propTypes = {
+  userData: PropTypes.objectOf().isRequired,
+};
+
+export default connect(mapStateToProps)(ProfileIcon);
