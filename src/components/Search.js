@@ -26,7 +26,9 @@ const useStyles = makeStyles((theme) => ({
 const Search = () => {
   const [departureDate, setDepartureDate] = useState(new Date());
   const [returnDate, setReturnDate] = useState(new Date());
+  const [places, setPlaces] = useState([]);
   const classes = useStyles();
+
   const handleDepartureChange = (date) => {
     setDepartureDate(date);
   };
@@ -34,6 +36,19 @@ const Search = () => {
   const handleReturnChange = (date) => {
     setReturnDate(date);
   };
+
+  const fetchPlaces = (input) => {
+    const result = ['aaa', 'aaab' ,'aaac', 'aaad'];
+    setPlaces(result);
+  }
+
+  const filterPlaces = (input) => {
+    if (input.length > 3) {
+      const filteredPlaces = places.filter((place) => place.includes(input));
+      setPlaces(filteredPlaces);
+    }
+  }
+
   return (
     <div className="search-component">
       <form>
@@ -43,6 +58,9 @@ const Search = () => {
               required
               id="standard-required"
               label="From"
+              onChange={(e) => e.target.value.length === 3 
+                ? fetchPlaces(e.target.value) 
+                : filterPlaces(e.target.value)}
             />
             <TextField
               required
