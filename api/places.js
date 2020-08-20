@@ -10,7 +10,7 @@ async function getPlace(place) {
 
     req.headers({
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-      "x-rapidapi-key": "258854ec1emsh9df9bc6f220edf4p1590c3jsna1bfe0c1615f",
+      "x-rapidapi-key": process.env.SKYSCANNER_KEY,
       "useQueryString": true
     });
 
