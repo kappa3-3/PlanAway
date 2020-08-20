@@ -24,9 +24,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search = () => {
-  const [departureDate, setDepartureDate] = useState(new Date());
-  const [returnDate, setReturnDate] = useState(new Date());
+  const [departureDate, setDepartureDate] = useState("2020-12-01");
+  const [returnDate, setReturnDate] = useState("2020-12-09");
   const [places, setPlaces] = useState([]);
+  const [from, setFrom] = useState("SFO-sky");
+  const [to, setTo] = useState("ORD-sky");
   const classes = useStyles();
 
   const handleDepartureChange = (date) => {
@@ -47,6 +49,15 @@ const Search = () => {
       const filteredPlaces = places.filter((place) => place.includes(input));
       setPlaces(filteredPlaces);
     }
+  }
+
+  const searchDestinations = (e) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/destinations', {
+      method: 'POST',
+      body: JSON.stringify({ departureDate, returnDate, from, to }),
+    }).then((res) => res.json())
+      .then((res) => console.log(res));
   }
 
   return (
@@ -103,6 +114,7 @@ const Search = () => {
             className={classes.button}
             endIcon={<FlightTakeOffIcon />}
             type="submit"
+            onClick={(e) => searchDestinations(e)}
           >
             Search Flights
           </Button>
