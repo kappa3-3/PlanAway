@@ -51,16 +51,14 @@ const Search = () => {
     setReturnDate(formatDate(date));
   };
 
-  const fetchPlaces = () => {
-
-  };
-
-  const filterPlaces = (input) => {
-    if (input.length > 3) {
-      const filteredPlaces = places.filter((place) => place.includes(input));
-      setPlaces(filteredPlaces);
-    }
-  };
+  const fetchPlace = (e, place) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/places', {
+      method: 'POST',
+      body: place,
+     }).then((res) => res.json())
+      .then((res) => setPlaces(res));
+  }
 
   const defaultProps = {
     options: places,
@@ -88,7 +86,7 @@ const Search = () => {
                 id="controlled-demo"
                 value={fromValue}
                 onChange={(event, newValue) => {
-                  setFromValue(newValue);
+                  event.target.value.length === 3 ? fetchPlaces(event.target.value) : '';
                   if (newValue) {
                     setFromPlaceId(newValue.PlaceId);
                   }
@@ -105,7 +103,7 @@ const Search = () => {
                 id="controlled-demo"
                 value={toValue}
                 onChange={(event, newValue) => {
-                  setToValue(newValue);
+                  event.target.value.length === 3 ? fetchPlaces(event.target.value) : '';
                   if (newValue) {
                     setToPlaceId(newValue.PlaceId);
                   }
