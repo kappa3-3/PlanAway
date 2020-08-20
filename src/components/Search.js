@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
@@ -27,6 +28,7 @@ const Search = () => {
   const [departureDate, setDepartureDate] = useState(new Date());
   const [returnDate, setReturnDate] = useState(new Date());
   const [places, setPlaces] = useState([]);
+  const [placeId, setPlaceId] = useState('abx');
   const classes = useStyles();
 
   const handleDepartureChange = (date) => {
@@ -37,16 +39,21 @@ const Search = () => {
     setReturnDate(date);
   };
 
-  const fetchPlaces = (input) => {
-    const result = ['aaa', 'aaab' ,'aaac', 'aaad'];
-    setPlaces(result);
+  const handleResponse = (res) => {
+    if(res === null) {
+      console.log('No such place')
+    } else {
+      console.log(res)
+    }
   }
 
-  const filterPlaces = (input) => {
-    if (input.length > 3) {
-      const filteredPlaces = places.filter((place) => place.includes(input));
-      setPlaces(filteredPlaces);
-    }
+  const searchPlace = (e) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/places', {
+      method: 'POST',
+      body: 'ams',
+    }).then((res) => res.json())
+      .then((res) => console.log(res));
   }
 
   return (
@@ -58,9 +65,7 @@ const Search = () => {
               required
               id="standard-required"
               label="From"
-              onChange={(e) => e.target.value.length === 3 
-                ? fetchPlaces(e.target.value) 
-                : filterPlaces(e.target.value)}
+              onChange={handleResponse}
             />
             <TextField
               required
@@ -103,6 +108,7 @@ const Search = () => {
             className={classes.button}
             endIcon={<FlightTakeOffIcon />}
             type="submit"
+            onClick={(e) => searchPlace(e)}
           >
             Search Flights
           </Button>
