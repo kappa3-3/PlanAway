@@ -48,11 +48,11 @@ const Search = () => {
     setReturnDate(formatDate(date));
   };
 
-  const fetchPlaces = (e, place) => {
+  const fetchPlaces = (e) => {
     e.preventDefault();
     fetch('/.netlify/functions/places', {
       method: 'POST',
-      body: place,
+      body: e.target.value,
     }).then((res) => res.json())
       .then((res) => setPlaces(res.Places));
   };
@@ -96,7 +96,7 @@ const Search = () => {
                     margin="normal"
                     onChange={(event) => {
                       if (event.target.value.length === 3) {
-                        fetchPlaces(event, event.target.value);
+                        fetchPlaces(event);
                       }
                     }}
                   />
