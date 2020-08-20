@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import './Search.css';
+import zIndex from '@material-ui/core/styles/zIndex';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,16 +36,22 @@ const Search = () => {
 
   const classes = useStyles();
 
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`;
+  }
+
   const handleDepartureChange = (date) => {
-    setDepartureDate(date);
+    setDepartureDate(formatDate(date));
   };
 
   const handleReturnChange = (date) => {
-    setReturnDate(date);
+    setReturnDate(formatDate(date));
   };
 
   const fetchPlaces = () => {
-   
 
   };
 
@@ -60,7 +67,7 @@ const Search = () => {
     getOptionLabel: (place) => `${place.PlaceName}, ${place.CountryName}`,
   };
 
-  const searchDestinations = (e) => {
+  const fetchDestinations = (e) => {
     e.preventDefault();
     fetch('/.netlify/functions/destinations', {
       method: 'POST',
@@ -148,7 +155,7 @@ const Search = () => {
               className={classes.button}
               endIcon={<FlightTakeOffIcon />}
               type="submit"
-              onClick={(e) => searchDestinations(e)}
+              onClick={(e) => fetchDestinations(e)}
             >
               Search Flights
             </Button>

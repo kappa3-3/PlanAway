@@ -4,8 +4,8 @@ const key = process.env.SKYSCANNER_KEY;
 
 async function getData(info) {
   try {
-    const { departureDate, returnDate, from, to } = info;
-    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/NL/EUR/en-GB/${from}/${to}/${departureDate}`);
+    const { departureDate, returnDate, fromPlaceId, toPlaceId } = info;
+    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}`);
 
     req.query({
       "inboundpartialdate": returnDate
@@ -13,7 +13,7 @@ async function getData(info) {
 
     req.headers({
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
-      "x-rapidapi-key": "0a9d8fee31mshb9a45a4689f1692p1a5e90jsn742192a63408",
+      "x-rapidapi-key": key,
       "useQueryString": true
     });
 
