@@ -83,7 +83,6 @@ const Search = () => {
                 options={defaultProps.options}
                 getOptionLabel={defaultProps.getOptionLabel}
                 id="controlled-demo"
-                value={null}
                 onChange={(event, newValue) => {
                   if (newValue) {
                     setFromPlaceId(newValue.PlaceId);
@@ -92,6 +91,7 @@ const Search = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    required
                     label="From"
                     margin="normal"
                     onChange={(event) => {
@@ -108,7 +108,6 @@ const Search = () => {
                 options={defaultProps.options}
                 getOptionLabel={defaultProps.getOptionLabel}
                 id="controlled-demo"
-                value={null}
                 onChange={(event, newValue) => {
                   if (newValue) {
                     setToPlaceId(newValue.PlaceId);
