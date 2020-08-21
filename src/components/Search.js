@@ -59,7 +59,7 @@ const Search = () => {
 
   const defaultProps = {
     options: places,
-    getOptionLabel: (place) => `${place.PlaceName}, ${place.CountryName}`,
+    getOptionLabel: (place) => `${place.PlaceName} (${place.PlaceId.slice(0, 3)}), ${place.CountryName}`
   };
 
   const fetchDestinations = (e) => {
