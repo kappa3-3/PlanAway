@@ -116,6 +116,7 @@ const Search = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
+                    required
                     label="To"
                     margin="normal"
                     onChange={(event) => {
