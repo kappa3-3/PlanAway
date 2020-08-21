@@ -8,7 +8,7 @@ import './App.css';
 export default function App() {
 
   return (
-    <div>
+    <>
       <Router>
         <header className="navbar">
           <Navigation />
@@ -18,6 +18,6 @@ export default function App() {
         </div>
       </Router>
       <Footer />
-    </div>
+    </>
   );
 }
