@@ -29,8 +29,8 @@ const ProfileIcon = ({ userData }) => {
       <Avatar
         className={classes.pink}
       >
-        {userData.first_name.substring(0, 1)}
-        {userData.last_name.substring(0, 1)}
+        {userData ? userData.first_name.substring(0, 1) : '..'}
+        {userData ? userData.last_name.substring(0, 1) : '..'}
       </Avatar>
     </Link>
   );
