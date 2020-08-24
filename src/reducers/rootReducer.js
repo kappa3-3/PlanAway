@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   isAuth,
   userData,
   flightsData,
-  tripsData
+  tripsData,
 });
 
 export default rootReducer;

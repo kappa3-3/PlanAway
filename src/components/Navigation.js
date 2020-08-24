@@ -20,18 +20,24 @@ function Navigation({ auth, currentTrip }) {
         </li>
         <li>
           <Link
-            to="/myplanaway"
+            to={auth ? '/myplanaway' : '/account/login'}
             className="navigation-link navigation-page"
           >
-            { !currentTrip 
-            ? <span>MyPlanAway</span>
-            : <span>MyPlanAway : <span className="accent-color">{currentTrip}</span></span>
-            }
+            MyPlanAway
           </Link>
         </li>
+        {currentTrip
+          ? (
+            <li className="navigation-static">
+              CurrentTrip :
+              <span className="accent-color">
+                {currentTrip}
+              </span>
+            </li>
+          ) : ''}
         {auth
           ? (
-            <li>
+            <li className="navigation-auth">
               <LogOut />
             </li>
           ) : (
@@ -46,7 +52,7 @@ function Navigation({ auth, currentTrip }) {
           )}
         {auth
           ? (
-            <li>
+            <li className="navigation-auth">
               <ProfileIcon />
             </li>
           ) : (
@@ -66,12 +72,12 @@ function Navigation({ auth, currentTrip }) {
 
 Navigation.propTypes = {
   auth: PropTypes.bool.isRequired,
-  currentTrip: PropTypes.string.isRequired
+  currentTrip: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.isAuth,
-  currentTrip: state.tripsData.currentTrip
+  currentTrip: state.tripsData.currentTrip,
 });
 
 export default connect(mapStateToProps)(Navigation);

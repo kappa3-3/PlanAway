@@ -14,14 +14,13 @@
 
 .navigation-page {
   float: left;
-  text-decoration: none;
 }
 
 .navigation-link {
-  display: block;
   color: rgb(173, 172, 172);
   text-align: center;
   padding: 14px 16px;
+  text-decoration: none;
 }
 
 .navigation-link:hover {
@@ -29,4 +28,11 @@
 }
 .accent-color {
   color: #C51163;
+}
+
+.navigation-static {
+  display: inline-block;
+  color: rgb(173, 172, 172);
+  text-align: center;
+  padding: 14px 16px;
 }

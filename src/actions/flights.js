@@ -1,4 +1,4 @@
-export const storeFlights = results => ({
+export const storeFlights = (results) => ({
   type: 'STORE_FLIGHTS',
-  results
+  results,
 });

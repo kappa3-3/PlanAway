@@ -11,7 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { chooseTrip } from '../actions/trips';
+import * as trips from '../actions/trips';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -126,7 +126,13 @@ function Profile({ userData, chooseTrip }) {
                   <FormControl component="fieldset">
                     <FormLabel component="legend">Current trip</FormLabel>
                     <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
-                      {userData.plans.map((plan) => (<FormControlLabel value={plan.name} control={<Radio />} label={plan.name} />))}
+                      {userData.plans.map((plan) => (
+                        <FormControlLabel
+                          value={plan.name}
+                          control={<Radio />}
+                          label={plan.name}
+                        />
+                      ))}
                     </RadioGroup>
                   </FormControl>
                   <div className="Profile-btn">
@@ -156,6 +162,7 @@ const mapStateToProps = (state) => ({
 
 Profile.propTypes = {
   userData: PropTypes.objectOf().isRequired,
+  chooseTrip: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { chooseTrip })(Profile);
+export default connect(mapStateToProps, { ...trips })(Profile);
