@@ -7,14 +7,13 @@ async function getData(info) {
     const {
       departureDate, returnDate, fromPlaceId, toPlaceId,
     } = info;
-    const req = unirest('GET', `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}`);
+    // const req = unirest('GET', `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}`);
 
-    req.query({
-      inboundpartialdate: returnDate,
-    });
+    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}/${returnDate}`);
+
 
     req.headers({
-      'x-rapidapi-host': 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com',
+      "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
       'x-rapidapi-key': key,
       useQueryString: true,
     });
