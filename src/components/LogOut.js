@@ -10,7 +10,7 @@ import * as userData from '../actions/userData';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
-      margin: theme.spacing(.75),
+      margin: theme.spacing(0.75),
     },
   },
 }));

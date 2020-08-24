@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -182,6 +183,10 @@ const Search = ({ storeFlights }) => {
       {redirect ? <Redirect to="/flights" /> : ''}
     </div>
   );
+};
+
+Search.propTypes = {
+  storeFlights: PropTypes.func.isRequired,
 };
 
 export default connect(null, { storeFlights })(Search);
