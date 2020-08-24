@@ -33,3 +33,8 @@
     padding: 15px;
     border-radius: 50%;
 }
+
+.button:hover {
+    background-color: rgb(202, 202, 202);
+    cursor: pointer;
+}

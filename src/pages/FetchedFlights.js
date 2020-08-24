@@ -4,18 +4,34 @@ import PropTypes from 'prop-types';
 import Flight from '../components/Flight';
 import './FetchedFlights.css';
 
-const FetchedFlights = () => {
+const FetchedFlights = ({ data }) => {
   return (
-    <div className="all-flights">
-      <Flight />
-      <Flight />
-      <Flight />
-    </div>
+    <>
+      { data
+        ? (
+          <div className="all-flights">
+            {data.Quotes.map(({
+              QuoteId,
+              Direct,
+              InboundLeg,
+              OutboundLeg,
+            }) => (
+              <Flight
+                key={QuoteId}
+                isDirect={Direct}
+              />
+            ))}
+          </div>
+        )
+        : (
+          'Loading...'
+        )}
+    </>
   );
 };
 
 const mapStateToProps = (state) => ({
-  data: state.results,
+  data: state.flightsData,
 });
 
 FetchedFlights.propTypes = {
