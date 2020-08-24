@@ -1,0 +1,35 @@
+.flights {
+    margin-bottom: 10px;
+}
+
+.flights, .carrier {
+    display: flex;
+    flex-direction: row;
+    background-color:  rgba(255, 255, 255, 70%);
+    padding: 20px 30px 20px 30px;
+    border-radius: 10px;
+    color: rgb(90, 89, 89);
+}
+
+.price {
+    align-self: center;
+    padding-left: 20px 
+}
+
+.carrier-name {
+    margin-right: 35px;
+}
+
+.route-info {
+    margin: 0 20px;
+}
+
+.isDirect {
+    color: rgb(33, 206, 188);
+}
+
+.button {
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+}

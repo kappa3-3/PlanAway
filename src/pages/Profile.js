@@ -6,6 +6,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import * as trips from '../actions/trips';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -17,9 +23,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Profile({ userData }) {
+function Profile({ userData, chooseTrip }) {
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
+
+  const handleChange = (event) => {
+    chooseTrip(event.target.value);
+  };
+
   return (
     <div>
       {userData !== null
@@ -111,20 +122,33 @@ function Profile({ userData }) {
                         readOnly: true,
                       }}
                     />
-                    <div className="Profile-btn">
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        endIcon={<EditIcon />}
-                        type="submit"
-                        onClick={() => setEdit(true)}
-                      >
-                        <span>Edit Profile</span>
-                      </Button>
-                    </div>
+                  </div>
+                  <FormControl component="fieldset">
+                    <FormLabel component="legend">Current trip</FormLabel>
+                    <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
+                      {userData.plans.map((plan) => (
+                        <FormControlLabel
+                          value={plan.name}
+                          control={<Radio />}
+                          label={plan.name}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
+                  <div className="Profile-btn">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className={classes.button}
+                      endIcon={<EditIcon />}
+                      type="submit"
+                      onClick={() => setEdit(true)}
+                    >
+                      <span>Edit Profile</span>
+                    </Button>
                   </div>
                 </div>
+
               )}
           </form>
         ) : <Redirect to="/" />}
@@ -138,6 +162,7 @@ const mapStateToProps = (state) => ({
 
 Profile.propTypes = {
   userData: PropTypes.objectOf().isRequired,
+  chooseTrip: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { ...trips })(Profile);
