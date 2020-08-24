@@ -27,3 +27,6 @@
 .navigation-link:hover {
   background-color: rgb(246, 246, 246);
 }
+.accent-color {
+  color: #C51163;
+}

@@ -27,10 +27,10 @@ exports.handler = async function (event, context) {
   try {
     const data = await getData(JSON.parse(event.body));
     if ( data !== null) {
-      const {email_address, first_name, last_name, vacation_days, _id} = data;
+      const {email_address, first_name, last_name, vacation_days, _id, plans} = data;
       return {
         statusCode: 200,
-        body: JSON.stringify({_id, email_address, first_name, last_name, vacation_days })
+        body: JSON.stringify({_id, email_address, first_name, last_name, vacation_days, plans })
       };
     } else {
       return {

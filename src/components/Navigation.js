@@ -6,7 +6,7 @@ import ProfileIcon from './ProfileIcon';
 import LogOut from './LogOut';
 import './Navigation.css';
 
-function Navigation({ auth }) {
+function Navigation({ auth, currentTrip }) {
   return (
     <nav>
       <ul className="navigation-list">
@@ -23,7 +23,10 @@ function Navigation({ auth }) {
             to="/myplanaway"
             className="navigation-link navigation-page"
           >
-            MyPlanAway
+            { !currentTrip 
+            ? <span>MyPlanAway</span>
+            : <span>MyPlanAway : <span className="accent-color">{currentTrip}</span></span>
+            }
           </Link>
         </li>
         {auth
@@ -63,10 +66,12 @@ function Navigation({ auth }) {
 
 Navigation.propTypes = {
   auth: PropTypes.bool.isRequired,
+  currentTrip: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.isAuth,
+  currentTrip: state.tripsData.currentTrip
 });
 
 export default connect(mapStateToProps)(Navigation);
