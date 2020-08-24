@@ -1,19 +1,10 @@
-const FlightsReducer = (state = [], action) => {
+const flightsReducer = (state = [], action) => {
   // console.log(action);
   switch (action.type) {
-    case 'ADD_FLIGHTS':
-      return ([
-        ...state,
-        {
-          id: action.task.id,
-          title: action.task.title,
-          description: action.task.description,
-          isFinished: action.task.isFinished,
-          isEdit: action.task.isEdit,
-        },
-      ]);
+    case 'STORE_FLIGHTS':
+      return (action.results);
     default: return state;
   }
 };
 
-export default FlightsReducer;
+export default flightsReducer;

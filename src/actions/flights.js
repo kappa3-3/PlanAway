@@ -1,4 +1,4 @@
 export const storeFlights = results => ({
-  type: 'ADD_FLIGHT',
+  type: 'STORE_FLIGHTS',
   results
 });

@@ -10,8 +10,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
-// import { connect } from 'react-redux';
-// import * as addFlight from '../actions/flights';
+import { connect } from 'react-redux';
+import { storeFlights } from '../actions/flights';
+import { Redirect } from 'react-router-dom';
 import './Search.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,12 +27,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = () => {
+const Search = ({ storeFlights }) => {
   const [departureDate, setDepartureDate] = useState();
   const [returnDate, setReturnDate] = useState();
   const [places, setPlaces] = useState([]);
   const [fromPlaceId, setFromPlaceId] = useState();
   const [toPlaceId, setToPlaceId] = useState();
+  const [redirect, setRedirect] = useState(false);
 
   const classes = useStyles();
 
@@ -72,7 +74,8 @@ const Search = () => {
         departureDate, returnDate, fromPlaceId, toPlaceId,
       }),
     }).then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => storeFlights(res))
+      .then(() => setRedirect(true))
   };
 
   return (
@@ -122,7 +125,7 @@ const Search = () => {
                     margin="normal"
                     onChange={(event) => {
                       if (event.target.value.length === 3) {
-                        fetchPlaces(event, event.target.value);
+                        fetchPlaces(event);
                       }
                     }}
                   />
@@ -176,11 +179,12 @@ const Search = () => {
           </div>
         </MuiPickersUtilsProvider>
       </form>
+      {redirect ? < Redirect to = '/flights' /> : ''}
     </div>
   );
 };
 
 
-// export default connect(null, { ...addFlight })(Search);
-export default Search;
+export default connect(null, { storeFlights })(Search);
+// export default Search;
 
