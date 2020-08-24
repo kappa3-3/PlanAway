@@ -10,14 +10,18 @@
 }
 
 .overflow-scroll {
-  overflow-y: scroll;
+  overflow-y: scroll; 
   position: absolute;
   top: 53px;
-  padding: 30px;
-  width: 85vw;
+  left: 45px;
+  width: 75vw;
   height: 90vh;
 }
 
 .tile-bg {
   background-color: rgba(200, 200, 200, .65);
+}
+
+.planAway-wrapper {
+  display: flex;
 }
