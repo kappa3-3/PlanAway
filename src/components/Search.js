@@ -10,6 +10,8 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
+// import { connect } from 'react-redux';
+// import * as addFlight from '../actions/flights';
 import './Search.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -178,4 +180,7 @@ const Search = () => {
   );
 };
 
+
+// export default connect(null, { ...addFlight })(Search);
 export default Search;
+
