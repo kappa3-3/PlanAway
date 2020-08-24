@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     '& > *': {
-      margin: theme.spacing(.5),
+      margin: theme.spacing(0.5),
     },
   },
   pink: {
