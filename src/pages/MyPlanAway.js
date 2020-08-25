@@ -9,17 +9,17 @@ import './MyPlanAway.css';
 function MyPlanAway({ auth, plans }) {
   return (
     <div>
+      <h1>Hello it is the MyPlanAway page</h1>
       <div className="overflow-scroll">
-        <h1>Hello it is the MyPlanAway page</h1>
         {auth
           ? (
-            <div className="flex-wrap">
+            <div className="flex">
               {[...new Array(12)].map((m, i) => <CalendarView month={new Date(2020, i, 1)} />)}
             </div>
           )
           : <Redirect to="/account/login" />}
       </div>
-      <div>
+      <div className="flex-wrap">
         {plans.map((plan) => <TripInformation plan={plan} />)}
       </div>
     </div>

@@ -9,27 +9,24 @@ function TripInformation(plan) {
     const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
     return `${da}-${mo}-${ye}`;
   };
+  console.log(plan);
   return (
-    <>
-      {plan.out
-        ? (
-          <div className="trip_container">
-            <h1>
-              Connection:
-              {plan.connection}
-            </h1>
-            <p>Flights:</p>
-            <h3>
-              Departure:
-              {dateFormatter(plan.out)}
-            </h3>
-            <h3>
-              Return:
-              {dateFormatter(plan.in)}
-            </h3>
-          </div>
-        ) : ''}
-    </>
+    <div className="trip_container">
+      <h3>{plan.name}</h3>
+      <p>
+        Connection:
+        {plan.flights.connection}
+      </p>
+      <p>Flights:</p>
+      <span>
+        Departure:
+        {dateFormatter(plan.flights.out)}
+      </span>
+      <span>
+        Return:
+        {dateFormatter(plan.flights.in)}
+      </span>
+    </div>
   );
 }
 

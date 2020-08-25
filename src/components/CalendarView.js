@@ -8,7 +8,7 @@ function CalendarView({ month }) {
   ];
   return (
     <div className="flex-width">
-      <h3>{monthNames[month.getMonth()]}</h3>
+      <h3 className="month-title">{monthNames[month.getMonth()]}</h3>
       <Calendar
         view="month"
         onDrillDown={() => 'a'}

@@ -1,4 +1,4 @@
-export const chooseTrip = currentTrip => ({
+export const chooseTrip = (currentTrip) => ({
   type: 'SET_CURRENT',
-  currentTrip
+  currentTrip,
 });

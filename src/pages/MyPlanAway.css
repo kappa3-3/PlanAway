@@ -1,27 +1,39 @@
-.flex-wrap {
+.flex {
   display: flex;
-  flex-wrap: wrap;
-}
-
-.flex-width {
-  padding: 15px;
-  width: 230px;
-  background-color: rgba(255, 255, 255, 75%);
 }
 
 .overflow-scroll {
-  overflow-y: scroll; 
-  position: absolute;
-  top: 53px;
-  left: 45px;
-  width: 75vw;
-  height: 90vh;
+  overflow-x: scroll;
+
+  /* position: absolute; */
+  /* top: 53px; */
+  /* left: 45px; */
+  width: 95vw;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 75%);
+  border-radius: 10px;
 }
 
 .tile-bg {
   background-color: rgba(200, 200, 200, .65);
 }
 
-.planAway-wrapper {
+ /* calendar */
+
+ .flex-width {
+  padding: 10px;
+  width: 230px;
+  
+}
+
+.month-title {
+  margin: 0;
+  padding: 10px 0;
+}
+
+/* Trip information */
+
+.flex-wrap {
   display: flex;
+  flex-wrap: wrap;
 }
