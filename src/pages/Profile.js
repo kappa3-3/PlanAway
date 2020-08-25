@@ -23,6 +23,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const name = "First added trip";
+const flights= [];
+
+const trip = {
+  name
+};
+
+const handleNewTrip = (e) => {
+  e.preventDefault();
+  fetch('/.netlify/functions/trips', {
+    method: 'POST',
+    body: trip,
+  })
+  .then((res) => res.json())
+  .then((res) => console.log(res));
+}
+
 function Profile({ userData, chooseTrip }) {
   const [edit, setEdit] = useState(false);
   const classes = useStyles();
@@ -135,6 +152,7 @@ function Profile({ userData, chooseTrip }) {
                       ))}
                     </RadioGroup>
                   </FormControl>
+                  <button onClick={(e) => handleNewTrip(e)}>Add new trip</button>
                   <div className="Profile-btn">
                     <Button
                       variant="contained"
