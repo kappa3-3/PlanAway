@@ -1,15 +1,37 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Tooltip from '@material-ui/core/Tooltip';
-import './Flight.css';
 import FavoriteIcon from '@material-ui/icons/FavoriteBorder';
 import FilledIcon from '@material-ui/icons/Favorite';
+import { connect } from 'react-redux';
+import { addConnection } from '../actions/trips';
+import './Flight.css';
 
 const Flight = ({
   carrierIn, isDirect, carrierOut, price, currency,
-  departurePlace, arrivalPlace, departureDate, arrivalDate,
+  departurePlace, arrivalPlace, departureDate, arrivalDate, departureCity, arrivalCity, setConnection
 }) => {
   const [toggleButton, setToggleButton] = useState(false);
+
+  const addFlightToTrip = (e) => {
+    e.preventDefault();
+    setToggleButton(!toggleButton);
+    setConnection({
+      connection: `${departureCity} - ${arrivalCity}`,
+        out: departureDate,
+        in: arrivalDate,
+    });
+    // fetch('/.netlify/functions/flights', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     connection: `${departureCity} - ${arrivalCity}`,
+    //     out: departureDate,
+    //     in: arrivalDate,
+    //   }),
+    // }).then((res) => res.json())
+    //   .then((res) => console.log(res));
+  }
+
   return (
     <div className="flights">
       <div className="flights-container">
@@ -45,7 +67,11 @@ const Flight = ({
           {price}
         </h1>
         <Tooltip title="Add to trip: Hawai" placement="right">
-          <button type="button" className="button" onClick={() => setToggleButton(!toggleButton)}>
+          <button 
+            type="button" 
+            className="button" 
+            onClick={(e) => addFlightToTrip(e)}
+          >
             { toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
           </button>
         </Tooltip>
@@ -66,4 +92,6 @@ Flight.propTypes = {
   arrivalDate: PropTypes.string.isRequired,
 };
 
-export default Flight;
+
+export default connect(null, { setConnection: addConnection })(Flight);
+

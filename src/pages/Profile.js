@@ -11,7 +11,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import chooseTrip from '../actions/trips';
+import { chooseTrip } from '../actions/trips';
 import AddIcon from '@material-ui/icons/Add';
 import './Profile.css';
 
@@ -151,7 +151,7 @@ function Profile({ userData, setCurrentTrip }) {
                     />
                   </div>
                   <FormControl component="fieldset" className="trip-form">
-                    <FormLabel component="legend">Current trip</FormLabel>
+                    <FormLabel component="legend">Select current trip:</FormLabel>
                     <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
                       {userData.plans.map((plan) => (
                         <FormControlLabel
