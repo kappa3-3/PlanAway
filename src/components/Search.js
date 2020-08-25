@@ -54,7 +54,6 @@ const Search = ({ setFlights }) => {
   };
 
   const fetchPlaces = (e) => {
-    console.log(e.target.value);
     e.preventDefault();
     fetch('/.netlify/functions/places', {
       method: 'POST',

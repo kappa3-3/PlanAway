@@ -75,6 +75,10 @@ Navigation.propTypes = {
   currentTrip: PropTypes.string,
 };
 
+Navigation.defaultProps = {
+  currentTrip: 'This is your current trip',
+};
+
 const mapStateToProps = (state) => ({
   auth: state.isAuth,
   currentTrip: state.tripsData.currentTrip,

@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Flight from '../components/Flight';
+import StaticInfo from '../components/StaticInfo';
 import './FetchedFlights.css';
 
 const FetchedFlights = ({ data }) => {
@@ -9,7 +10,6 @@ const FetchedFlights = ({ data }) => {
 
   function checkCarrierId(inFlight) {
     let carrierName = '';
-
     carriers.find((carrier) => {
       if (carrier.CarrierId === inFlight.CarrierIds[0]) {
         carrierName = carrier.Name;
@@ -40,7 +40,7 @@ const FetchedFlights = ({ data }) => {
 
   return (
     <>
-      {data
+      {data.Quotes.length > 0
         ? (
           <div className="all-flights">
             {data.Quotes.map(({
@@ -66,7 +66,7 @@ const FetchedFlights = ({ data }) => {
           </div>
         )
         : (
-          'Loading...'
+          <StaticInfo msg="There are no flights that day." />
         )}
     </>
   );
