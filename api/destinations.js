@@ -15,7 +15,6 @@ async function getData(info) {
       useQueryString: true,
     });
 
-
     req.end((res) => res.body);
     const data = await req;
     return data.body;
