@@ -72,7 +72,7 @@ function Navigation({ auth, currentTrip }) {
 
 Navigation.propTypes = {
   auth: PropTypes.bool.isRequired,
-  currentTrip: PropTypes.string.isRequired,
+  currentTrip: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

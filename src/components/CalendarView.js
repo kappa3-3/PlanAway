@@ -29,8 +29,10 @@ function CalendarView({ month, tripDates }) {
 }
 
 CalendarView.propTypes = {
-  month: PropTypes.objectOf().isRequired,
-  tripDates: PropTypes.objectOf().isRequired,
+  month: PropTypes.instanceOf(Date).isRequired,
+  tripDates: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.object,
+  ])).isRequired,
 };
 
 export default CalendarView;

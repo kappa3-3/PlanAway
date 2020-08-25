@@ -34,8 +34,12 @@ const mapStateToProps = (state) => ({
 });
 
 Routing.propTypes = {
-  data: PropTypes.objectOf().isRequired,
+  data: PropTypes.arrayOf(PropTypes.object),
   auth: PropTypes.bool.isRequired,
+};
+
+Routing.defaultProps = {
+  data: [],
 };
 
 export default connect(mapStateToProps)(Routing);

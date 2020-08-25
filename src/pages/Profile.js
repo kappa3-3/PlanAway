@@ -128,6 +128,7 @@ function Profile({ userData, chooseTrip }) {
                     <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
                       {userData.plans.map((plan) => (
                         <FormControlLabel
+                          key={plan.name}
                           value={plan.name}
                           control={<Radio />}
                           label={plan.name}
@@ -161,7 +162,11 @@ const mapStateToProps = (state) => ({
 });
 
 Profile.propTypes = {
-  userData: PropTypes.objectOf().isRequired,
+  userData: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
   chooseTrip: PropTypes.func.isRequired,
 };
 

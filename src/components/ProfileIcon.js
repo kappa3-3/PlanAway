@@ -41,7 +41,11 @@ const mapStateToProps = (state) => ({
 });
 
 ProfileIcon.propTypes = {
-  userData: PropTypes.objectOf().isRequired,
+  userData: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
 };
 
 export default connect(mapStateToProps)(ProfileIcon);

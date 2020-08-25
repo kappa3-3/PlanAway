@@ -17,6 +17,7 @@ function MyPlanAway({ auth, plans }) {
             <div className="flex">
               {[...new Array(12)].map((m, i) => (
                 <CalendarView
+                  key={m}
                   month={new Date(2020, i, 1)}
                   tripDates={tripDates}
                 />
@@ -26,7 +27,12 @@ function MyPlanAway({ auth, plans }) {
           : <Redirect to="/account/login" />}
       </div>
       <div className="flex-wrap">
-        {tripDates.map((plan) => <TripInformation plan={plan} />)}
+        {tripDates.map((plan) => (
+          <TripInformation
+            plan={plan}
+            key={plan.name}
+          />
+        ))}
       </div>
     </div>
   );
@@ -39,7 +45,9 @@ const mapStateToProps = (state) => ({
 
 MyPlanAway.propTypes = {
   auth: PropTypes.bool.isRequired,
-  plans: PropTypes.objectOf().isRequired,
+  plans: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.object,
+  ])).isRequired,
 };
 
 export default connect(mapStateToProps)(MyPlanAway);

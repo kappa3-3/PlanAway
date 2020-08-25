@@ -34,7 +34,10 @@ function TripInformation({ plan }) {
 }
 
 TripInformation.propTypes = {
-  plan: PropTypes.objectOf().isRequired,
+  plan: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ])).isRequired,
 };
 
 export default TripInformation;
