@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function TripInformation(plan) {
+function TripInformation({ plan }) {
   const dateFormatter = (date) => {
     const d = new Date(date);
     const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
@@ -14,18 +14,20 @@ function TripInformation(plan) {
     <div className="trip_container">
       <h3>{plan.name}</h3>
       <p>
-        Connection:
-        {plan.flights.connection}
+        <span>Connection:</span>
+      </p>
+      <p>
+        <span>{plan.flights[0].connection}</span>
       </p>
       <p>Flights:</p>
-      <span>
-        Departure:
-        {dateFormatter(plan.flights.out)}
-      </span>
-      <span>
-        Return:
-        {dateFormatter(plan.flights.in)}
-      </span>
+      <p>
+        <span>Departure:</span>
+        <span>{dateFormatter(plan.flights[0].out)}</span>
+      </p>
+      <p>
+        <span>Return:</span>
+        <span>{dateFormatter(plan.flights[0].in)}</span>
+      </p>
     </div>
   );
 }
