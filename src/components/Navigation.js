@@ -76,7 +76,7 @@ Navigation.propTypes = {
 };
 
 Navigation.defaultProps = {
-  currentTrip: 'This is your current trip',
+  currentTrip: '',
 };
 
 const mapStateToProps = (state) => ({
