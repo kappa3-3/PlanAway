@@ -4,7 +4,7 @@ const dbuser = process.env.MONGO_USER;
 const password = process.env.MONGO_PASS;
 const db = process.env.MONGO_DB;
 
-async function getData(user) {
+async function getData(trip) {
 	const uri = `mongodb+srv://${dbuser}:${password}@pacluster.1truh.mongodb.net/${db}?retryWrites=true&w=majority`;
 	const client = new MongoClient(uri, {
 		useNewUrlParser: true,
@@ -15,10 +15,17 @@ async function getData(user) {
 		const result = await client
 			.db('usersdb')
 			.collection('users')
-			.findOne(ObjectID("5f3d170f29896b21db22267b"))
-		
-		console.log(result)
-		return result;
+			.updateOne(
+				{ _id : ObjectID(trip.id) },
+				{$push: { 
+					plans: {
+						name: trip.name, 
+						flights: trip.flights
+					}
+				}},
+		 )
+		 const { matchedCount, modifiedCount } = result;
+		return ({ matchedCount, modifiedCount});
 	} catch (err) {
 		console.log(err);
 		await client.close();
@@ -26,8 +33,7 @@ async function getData(user) {
 }
 
 exports.handler = async function (event, context) {
-	console.log(event)
-	const data = await getData(event.body);
+	const data = await getData(JSON.parse(event.body));
 	return {
 		statusCode: 200,
 		body: JSON.stringify(data)

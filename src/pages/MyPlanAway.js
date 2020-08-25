@@ -26,10 +26,6 @@ function MyPlanAway({ auth, plans }) {
   );
 }
 
-// function popUpTrip(e) {
-  
-// }
-
 const mapStateToProps = (state) => ({
   auth: state.isAuth,
   plans: state.userData.plans,
