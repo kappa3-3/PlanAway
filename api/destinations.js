@@ -7,7 +7,7 @@ async function getData(info) {
     const {
       departureDate, returnDate, fromPlaceId, toPlaceId,
     } = info;
-    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}/${returnDate}`);
+    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}/${returnDate}`);
 
     req.headers({
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
@@ -17,6 +17,7 @@ async function getData(info) {
 
     req.end((res) => res.body);
     const data = await req;
+
     return data.body;
   } catch (err) {
     throw (err.message);
@@ -31,6 +32,7 @@ exports.handler = async function (event) {
       body: JSON.stringify(destinations),
     };
   } catch (err) {
+    console.log(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ msg: err.message }),

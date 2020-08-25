@@ -1,4 +1,6 @@
-export const storeFlights = (results) => ({
+const storeFlights = (results) => ({
   type: 'STORE_FLIGHTS',
   results,
 });
+
+export default storeFlights;

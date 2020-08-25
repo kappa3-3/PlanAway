@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import * as flights from '../actions/flights';
+import storeFlights from '../actions/flights';
 import './Search.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = ({ storeFlights }) => {
+const Search = ({ setFlights }) => {
   const [departureDate, setDepartureDate] = useState();
   const [returnDate, setReturnDate] = useState();
   const [places, setPlaces] = useState([]);
@@ -54,6 +54,7 @@ const Search = ({ storeFlights }) => {
   };
 
   const fetchPlaces = (e) => {
+    console.log(e.target.value);
     e.preventDefault();
     fetch('/.netlify/functions/places', {
       method: 'POST',
@@ -75,7 +76,7 @@ const Search = ({ storeFlights }) => {
         departureDate, returnDate, fromPlaceId, toPlaceId,
       }),
     }).then((res) => res.json())
-      .then((res) => storeFlights(res))
+      .then((res) => setFlights(res))
       .then(() => setRedirect(true));
   };
 
@@ -186,7 +187,7 @@ const Search = ({ storeFlights }) => {
 };
 
 Search.propTypes = {
-  storeFlights: PropTypes.func.isRequired,
+  setFlights: PropTypes.func.isRequired,
 };
 
-export default connect(null, { ...flights })(Search);
+export default connect(null, { setFlights: storeFlights })(Search);

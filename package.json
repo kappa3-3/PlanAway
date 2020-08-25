@@ -60,7 +60,8 @@
             "_id"
           ]
         }
-      ]
+      ],
+      "react/jsx-props-no-spreading": 0
     }
   },
   "browserslist": {
