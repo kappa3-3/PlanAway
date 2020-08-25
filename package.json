@@ -56,7 +56,8 @@
         "error",
         {
           "allow": [
-            "__REDUX_DEVTOOLS_EXTENSION__"
+            "__REDUX_DEVTOOLS_EXTENSION__",
+            "_id"
           ]
         }
       ]
