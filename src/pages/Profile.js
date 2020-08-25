@@ -11,8 +11,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { chooseTrip } from '../actions/trips';
 import AddIcon from '@material-ui/icons/Add';
+import { chooseTrip } from '../actions/trips';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({

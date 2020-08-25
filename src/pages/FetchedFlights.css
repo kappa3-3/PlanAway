@@ -1,7 +1,23 @@
 .all-flights {
-    margin-bottom: 20px;
-    overflow: scroll;
-    height: 85vh;
-    position: absolute;
-    top: 70px;
+  margin-bottom: 20px;
+  overflow: scroll;
+  height: 85vh;
+  margin-left: auto;
+  margin-top: 50px;
+}
+
+.chosen-flights-wrapper {
+  border: 2px solid #fff;
+  background-color: rgba(255, 255, 255, .55);
+  border-radius: 10px;
+  margin-top: 50px;
+  height: 85vh;
+  min-width: 250px;
+  box-sizing: border-box;
+  padding: 15px;
+  margin-left: 20px;
+}
+
+.flex-flights {
+  display: flex;
 }

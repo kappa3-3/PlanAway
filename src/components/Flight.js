@@ -18,18 +18,12 @@ const Flight = ({
     setToggleButton(!toggleButton);
     setConnection({
       connection: `${departureCity} - ${arrivalCity}`,
-        out: departureDate,
-        in: arrivalDate,
+      out: departureDate,
+      in: arrivalDate,
+      price,
+      carrierIn,
+      carrierOut,
     });
-    // fetch('/.netlify/functions/flights', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     connection: `${departureCity} - ${arrivalCity}`,
-    //     out: departureDate,
-    //     in: arrivalDate,
-    //   }),
-    // }).then((res) => res.json())
-    //   .then((res) => console.log(res));
   }
 
   return (
@@ -67,12 +61,12 @@ const Flight = ({
           {price}
         </h1>
         <Tooltip title="Add to trip: Hawai" placement="right">
-          <button 
-            type="button" 
-            className="button" 
+          <button
+            type="button"
+            className="button"
             onClick={(e) => addFlightToTrip(e)}
           >
-            { toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
+            {toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
           </button>
         </Tooltip>
       </div>
