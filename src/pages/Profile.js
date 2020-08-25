@@ -11,8 +11,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import chooseTrip from '../actions/trips';
 import AddIcon from '@material-ui/icons/Add';
-import * as trips from '../actions/trips';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Profile({ userData, chooseTrip }) {
+function Profile({ userData, setCurrentTrip }) {
   const [edit, setEdit] = useState(false);
   const [newTrip, setNewTrip] = useState('');
   const [isName, setisName] = useState(false);
@@ -51,7 +51,7 @@ function Profile({ userData, chooseTrip }) {
   };
 
   const handleChange = (event) => {
-    chooseTrip(event.target.value);
+    setCurrentTrip(event.target.value);
   };
 
   const handleTripName = (e) => {
@@ -225,7 +225,7 @@ Profile.propTypes = {
     PropTypes.number,
     PropTypes.array,
   ])).isRequired,
-  chooseTrip: PropTypes.func.isRequired,
+  setCurrentTrip: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { ...trips })(Profile);
+export default connect(mapStateToProps, { setCurrentTrip: chooseTrip })(Profile);

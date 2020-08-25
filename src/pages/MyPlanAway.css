@@ -35,6 +35,22 @@
   background-color: rgba(120, 200, 200, 75%);
 }
 
+.tile-bg-2 {
+  background-color: rgba(200, 200, 160, 75%);
+}
+
+.tile-bg-3 {
+  background-color: rgba(248, 253, 174, 0.75);
+}
+
+.tile-bg-4 {
+  background-color: rgba(79, 77, 224, 0.75);
+}
+
+.tile-bg-5 {
+  background-color: rgba(231, 142, 40, 0.75);
+}
+
 .month-title {
   margin: 0;
   padding: 10px 0;

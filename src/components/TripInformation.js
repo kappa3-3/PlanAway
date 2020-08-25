@@ -12,23 +12,26 @@ function TripInformation({ plan }) {
   return (
     <div className="trip_container">
       <h3 className={`trip_title ${plan.className}`}>{plan.name}</h3>
-      <div className="trip_details_wrapper">
-        <p>
-          <span>Connection:</span>
-        </p>
-        <p>
-          <span>{plan.connection}</span>
-        </p>
-        <p>Flights:</p>
-        <p>
-          <span>Departure:</span>
-          <span>{dateFormatter(plan.out)}</span>
-        </p>
-        <p>
-          <span>Return:</span>
-          <span>{dateFormatter(plan.in)}</span>
-        </p>
-      </div>
+      {(plan.in && plan.out)
+        ? (
+          <div className="trip_details_wrapper">
+            <p>
+              <span>Connection:</span>
+            </p>
+            <p>
+              <span>{plan.connection}</span>
+            </p>
+            <p>Flights:</p>
+            <p>
+              <span>Departure:</span>
+              <span>{dateFormatter(plan.out)}</span>
+            </p>
+            <p>
+              <span>Return:</span>
+              <span>{dateFormatter(plan.in)}</span>
+            </p>
+          </div>
+        ) : <p className="trip_details_wrapper">No flights added yet.</p>}
     </div>
   );
 }

@@ -22,7 +22,7 @@ function Routing({ data, auth }) {
       <Route exact path="/account/login" component={Login} />
       <Route exact path="/account/signup" component={Signup} />
       <Route exact path="/flights">
-        {data.Quotes ? <FetchedFlights /> : <h1>loading</h1>}
+        {data.Quotes ? <FetchedFlights /> : <Redirect to="/" />}
       </Route>
     </Switch>
   );
