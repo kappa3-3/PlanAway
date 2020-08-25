@@ -5,6 +5,21 @@ const tripsReducer = (state = {}, action) => {
         ...state,
         currentTrip: action.currentTrip,
       });
+    case 'ADD_CONNECTION':
+      let flights;
+      if (state.flights) {
+        state.flights.push(action.connection);
+      } else {
+        flights = [action.connection];
+      }
+      return ({
+        ...state,
+        flights,
+      });
+      case 'DELETE_CONNECTION':
+    return ({
+      ...state,
+    });
     default: return state;
   }
 };

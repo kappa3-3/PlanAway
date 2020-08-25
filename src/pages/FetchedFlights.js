@@ -61,6 +61,8 @@ const FetchedFlights = ({ data }) => {
                 arrivalPlace={data.Places[1].IataCode}
                 departureDate={formatDate(data.Quotes[0].OutboundLeg.DepartureDate.slice(0, 10))}
                 arrivalDate={formatDate(data.Quotes[0].InboundLeg.DepartureDate.slice(0, 10))}
+                departureCity={data.Places[0].Name}
+                arrivalCity={data.Places[1].Name}
               />
             ))}
           </div>
