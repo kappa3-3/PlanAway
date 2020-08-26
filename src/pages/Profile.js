@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Profile({ userData, trip, updateUser }) {
+function Profile({ userData, trip }) {
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
   const [isSaved, setIsSaved] = useState(false);

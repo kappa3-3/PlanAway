@@ -18,6 +18,16 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [Input, setInput] = useState('');
 
+  const handleRetrieveFromDB = () => {
+    fetch('/.netlify/functions/update', {
+      method: 'POST',
+      body: JSON.stringify({ id: userData._id }),
+    }).then((res) => res.json())
+      .then((res) => {
+        if (res !== null) updateUser(res);
+      }).then(() => setisName(false));
+  };
+
   const handleSavingToDatabase = (res) => {
     const { matchedCount, modifiedCount } = res;
     setIsSaved(matchedCount === 1 && modifiedCount === 1);
@@ -28,17 +38,6 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
     setInput(e.target.value);
     setNewTrip(e.target.value);
   };
-
-  const handleRetrieveFromDB = () => {
-    fetch('/.netlify/functions/update', {
-      method: 'POST',
-      body: JSON.stringify({id: userData._id}),
-    }).then((res) => res.json())
-      .then((res) => {
-        if (res !== null) updateUser(res);
-      }).then(() => setisName(false))
-      
-  }
 
   const handleNewTrip = (e) => {
     e.preventDefault();
@@ -108,7 +107,7 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
                   onClick={(e) => handleNewTrip(e)}
                 >
                   ADD TRIP
-                    <AddIcon style={{ color: 'white' }} />
+                  <AddIcon style={{ color: 'white' }} />
                 </button>
                 <button
                   type="button"
@@ -116,7 +115,7 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
                   onClick={() => handleGoBack()}
                 >
                   GO BACK
-                    <KeyboardBackspaceRoundedIcon
+                  <KeyboardBackspaceRoundedIcon
                     style={{ color: 'white' }}
                   />
                 </button>
@@ -142,4 +141,7 @@ ExistingTrips.propTypes = {
   updateUser: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setCurrentTrip: chooseTrip, updateUser: setUserData })(ExistingTrips);
+export default connect(null, {
+  setCurrentTrip: chooseTrip,
+  updateUser: setUserData,
+})(ExistingTrips);
