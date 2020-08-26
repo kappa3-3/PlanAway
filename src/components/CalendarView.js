@@ -13,8 +13,8 @@ function CalendarView({ month, tripDates }) {
         view="month"
         onDrillDown={() => 'a'}
         tileClassName={({ date, view }) => tripDates.map((trip) => {
-          const startDate = new Date(trip.out);
-          const endDate = new Date(trip.in);
+          const startDate = new Date(trip.start_date);
+          const endDate = new Date(trip.end_date);
           if (view === 'month'
             && date >= startDate
             && date <= endDate) return trip.className;

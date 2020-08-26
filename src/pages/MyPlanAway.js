@@ -1,13 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { setUserData } from '../actions/userData';
 import CalendarView from '../components/CalendarView';
 import TripInformation from '../components/TripInformation';
 import './MyPlanAway.css';
 
-function MyPlanAway({ auth, plans }) {
-  const tripDates = plans.map(({ name, flights }, i) => ({ name, className: `tile-bg-${i}`, ...flights[0] }));
+function MyPlanAway({
+  auth, plans, id, updateUser,
+}) {
+  useEffect(() => {
+    fetch('/.netlify/functions/users', {
+      method: 'POST',
+      body: JSON.stringify(id),
+    }).then((res) => res.json())
+      .then((res) => {
+        if (res !== null) updateUser(res);
+      });
+  }, []);
+
+  const tripDates = plans.map(({ start_date, end_date }, i) => ({ className: `tile-bg-${i}`, start_date, end_date }));
+  const tripInfo = plans.map(({ name, flights }, i) => ({ name, className: `tile-bg-${i}`, flights }));
   return (
     <div>
       <h3 className="yearly-title">Yearly overview</h3>
@@ -27,7 +41,7 @@ function MyPlanAway({ auth, plans }) {
           : <Redirect to="/account/login" />}
       </div>
       <div className="flex-wrap">
-        {tripDates.map((plan) => (
+        {tripInfo.map((plan) => (
           <TripInformation
             plan={plan}
             key={plan.name}
@@ -41,6 +55,7 @@ function MyPlanAway({ auth, plans }) {
 const mapStateToProps = (state) => ({
   auth: state.isAuth,
   plans: state.userData.plans,
+  id: state.userData._id,
 });
 
 MyPlanAway.propTypes = {
@@ -48,6 +63,7 @@ MyPlanAway.propTypes = {
   plans: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
   ])).isRequired,
+  id: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps)(MyPlanAway);
+export default connect(mapStateToProps, { updateUser: setUserData })(MyPlanAway);

@@ -72,6 +72,7 @@
   background-color: rgba(255, 255, 255, 75%);
   border-radius: 0 0 10px 10px;
   padding: 5px;
+  overflow-y: scroll;
 }
 
 .trip_title {
