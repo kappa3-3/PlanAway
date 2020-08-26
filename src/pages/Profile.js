@@ -6,16 +6,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import Radio from '@material-ui/core/Radio';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import AddIcon from '@material-ui/icons/Add';
-import KeyboardBackspaceRoundedIcon from '@material-ui/icons/KeyboardBackspaceRounded';
+import { setUserData } from '../actions/userData';
 import ProfileInfo from '../components/ProfileInfo';
-import { chooseTrip } from '../actions/trips';
+import ExistingTrips from '../components/ExistingTrips';
+
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,48 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Profile({ userData, setCurrentTrip, trip }) {
+function Profile({ userData, trip }) {
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
-  const [newTrip, setNewTrip] = useState('');
-  const [isName, setisName] = useState(false);
-  const [Input, setInput] = useState('');
   const [isSaved, setIsSaved] = useState(false);
   const [redirect, setRedirect] = useState(false);
-
-  const handleSavingToDatabase = (res) => {
-    const { matchedCount, modifiedCount } = res;
-    setIsSaved(matchedCount === 1 && modifiedCount === 1);
-  };
-
-  const handleNewTrip = (e) => {
-    e.preventDefault();
-    setisName(false);
-    setCurrentTrip(newTrip);
-    fetch('/.netlify/functions/trips', {
-      method: 'POST',
-      body: JSON.stringify({
-        id: userData._id,
-        name: newTrip,
-        flights: [],
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => handleSavingToDatabase(res));
-  };
-
-  const handleChange = (event) => {
-    setCurrentTrip(event.target.value);
-  };
-
-  const handleTripName = (e) => {
-    setInput(e.target.value);
-    setNewTrip(e.target.value);
-  };
-
-  const handleGoBack = () => {
-    setisName(false);
-  };
 
   return (
     <div>
@@ -126,72 +84,18 @@ function Profile({ userData, setCurrentTrip, trip }) {
               : (
                 <div className="Profile-wrapper">
                   <ProfileInfo />
-                  <FormControl component="fieldset" className="trip-form">
-                    <FormLabel component="legend">Select current trip:</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
-                      {userData.plans.map((plan) => (
-                        <FormControlLabel
-                          key={plan.name}
-                          value={plan.name}
-                          control={<Radio />}
-                          label={plan.name}
-                        />
-                      ))}
-                    </RadioGroup>
-                    {!isName
-                      ? (
-                        <FormControlLabel
-                          onClick={() => setisName(true)}
-                          control={<Radio />}
-                          label="Add new trip"
-                        />
-                      ) : (
-                        <>
-                          <div className="new-trip">
-                            <TextField
-                              required
-                              id="new-trip-name"
-                              label="trip name"
-                              onChange={(e) => handleTripName(e)}
-                              variant="outlined"
-                            />
-                            <div className="buttons">
-                              <button
-                                type="button"
-                                className="saveTripButton"
-                                disabled={Input.length === 0}
-                                onClick={(e) => handleNewTrip(e)}
-                              >
-                                ADD TRIP
-                                <AddIcon style={{ color: 'white' }} />
-                              </button>
-                              <button
-                                type="button"
-                                className="goBackButton"
-                                onClick={() => handleGoBack()}
-                              >
-                                GO BACK
-                                <KeyboardBackspaceRoundedIcon style={{ color: 'white' }} />
-                              </button>
-                            </div>
-                          </div>
-                        </>
-                      )}
-                  </FormControl>
+                  <ExistingTrips userData={userData} />
                   <div className="Profile-btn">
-                    {!isName
-                      ? (
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          className={classes.button}
-                          endIcon={<EditIcon />}
-                          type="button"
-                          onClick={() => setEdit(true)}
-                        >
-                          <span>Edit Profile</span>
-                        </Button>
-                      ) : ''}
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className={classes.button}
+                      endIcon={<EditIcon />}
+                      type="button"
+                      onClick={() => setEdit(true)}
+                    >
+                      <span>Edit Profile</span>
+                    </Button>
                   </div>
                   {trip.currentTrip
                     ? (
@@ -234,7 +138,8 @@ Profile.propTypes = {
     PropTypes.number,
     PropTypes.array,
   ])).isRequired,
-  setCurrentTrip: PropTypes.func.isRequired,
+
+  updateUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { setCurrentTrip: chooseTrip })(Profile);
+export default connect(mapStateToProps, { updateUser: setUserData })(Profile);
