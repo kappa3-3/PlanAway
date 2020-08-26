@@ -1,0 +1,82 @@
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import AddIcon from '@material-ui/icons/Add';
+
+const ChosenFlights = ({ trip, id }) => {
+  const [isSaved, setIsSaved] = useState(false);
+  const handleSavingToDatabase = (res) => {
+    const { matchedCount, modifiedCount } = res;
+    setIsSaved(matchedCount === 1 && modifiedCount === 1);
+  };
+
+  const saveToDatabase = (e, flight) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/flights', {
+      method: 'POST',
+      body: JSON.stringify({
+        id, flight, name: trip.currentTrip,
+      }),
+    }).then((res) => res.json())
+      .then((res) => handleSavingToDatabase(res));
+  };
+  return (
+    <div className="chosen-flights-wrapper">
+      <h2>Chosen flights:</h2>
+      {trip.flights
+        ? (
+          <>
+            {trip.flights.map((flight) => (
+              <div>
+                <h3>{flight.connection}</h3>
+                <p>
+                  price: €
+                  {flight.price}
+                </p>
+                <p>
+                  Departure:
+                  {flight.out}
+                  (
+                  {flight.carrierIn}
+                  )
+                </p>
+                <p>
+                  Arrival:
+                  {flight.in}
+                  (
+                  {flight.carrierOut}
+                  )
+                </p>
+                <button
+                  type="button"
+                  className="saveTripButton"
+                  disabled={isSaved}
+                  onClick={(e) => saveToDatabase(e, flight)}
+                >
+                  {isSaved ? 'SAVED TO ' : ''}
+                  {trip.currentTrip.toUpperCase()}
+                  <AddIcon style={{ color: 'white' }} />
+                </button>
+              </div>
+            ))}
+          </>
+        ) : ''}
+    </div>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  trip: state.tripsData,
+  id: state.userData._id,
+});
+
+ChosenFlights.propTypes = {
+  trip: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
+  id: PropTypes.string.isRequired,
+};
+
+export default connect(mapStateToProps)(ChosenFlights);

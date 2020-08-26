@@ -29,6 +29,14 @@ const Flight = ({
     });
   };
 
+  function formatDate(date) {
+    const newDate = date.slice(0, 10);
+    const day = newDate.slice(8, 10);
+    const month = newDate.slice(5, 7);
+    const year = newDate.slice(0, 4);
+    return `${day}-${month}-${year}`;
+  }
+
   return (
     <div className="flights">
       <div className="flights-container">
@@ -37,7 +45,7 @@ const Flight = ({
           <div className="flight-info">
             <h2>{departurePlace}</h2>
             <div className="route-info">
-              <h3>{departureDate}</h3>
+              <h3>{formatDate(departureDate)}</h3>
               <hr />
               <h3 className="isDirect">{isDirect ? 'Direct' : 'Indirect'}</h3>
             </div>
@@ -50,7 +58,7 @@ const Flight = ({
           <div className="flight-info">
             <h2>{arrivalPlace}</h2>
             <div className="route-info">
-              <h3>{arrivalDate}</h3>
+              <h3>{formatDate(arrivalDate)}</h3>
               <hr />
               <h3 className="isDirect">{isDirect ? 'Direct' : 'Indirect'}</h3>
             </div>

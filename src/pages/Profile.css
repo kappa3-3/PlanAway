@@ -31,6 +31,10 @@
   font-size: 80%;
 }
 
+.saveTripButton:disabled {
+  background-color: #b7b7b7;
+}
+
 .user-details {
   margin-bottom: 15px;
 }
