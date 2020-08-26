@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Radio from '@material-ui/core/Radio';
+import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -25,13 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Profile({ userData, setCurrentTrip }) {
+function Profile({ userData, setCurrentTrip, trip }) {
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
   const [newTrip, setNewTrip] = useState('');
   const [isName, setisName] = useState(false);
   const [Input, setInput] = useState('');
   const [isSaved, setIsSaved] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const handleSavingToDatabase = (res) => {
     const { matchedCount, modifiedCount } = res;
@@ -226,9 +228,24 @@ function Profile({ userData, setCurrentTrip }) {
                         </Button>
                       ) : ''}
                   </div>
+                  {trip.currentTrip
+                    ? (
+                      <div className="search-btn">
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.button}
+                          endIcon={<FlightTakeOffIcon />}
+                          type="button"
+                          onClick={() => setRedirect(true)}
+                        >
+                          Search Flights
+                        </Button>
+                      </div>
+                    ) : ''}
                 </div>
-
               )}
+            {redirect ? <Redirect to="/flights" /> : ''}
           </form>
         ) : <Redirect to="/" />}
       <span>
@@ -240,9 +257,15 @@ function Profile({ userData, setCurrentTrip }) {
 
 const mapStateToProps = (state) => ({
   userData: state.userData,
+  trip: state.tripsData,
 });
 
 Profile.propTypes = {
+  trip: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
   userData: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
