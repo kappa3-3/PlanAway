@@ -23,6 +23,7 @@
 
 .saveTripButton, .goBackButton {
   display: flex;
+  height: fit-content;
   align-items: center;
   background-color:#f50057;
   color: #ffffff;
