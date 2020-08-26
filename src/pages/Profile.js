@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
@@ -26,15 +26,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Profile({ userData, setCurrentTrip }) {
+  const classes = useStyles();
   const [edit, setEdit] = useState(false);
   const [newTrip, setNewTrip] = useState('');
   const [isName, setisName] = useState(false);
   const [Input, setInput] = useState('');
-  const classes = useStyles();
+  const [isSaved, setIsSaved] = useState(false);
 
-  useEffect(() => {
-
-  }, [userData]);
+  const handleSavingToDatabase = (res) => {
+    const { matchedCount, modifiedCount } = res;
+    setIsSaved(matchedCount === 1 && modifiedCount === 1);
+  };
 
   const handleNewTrip = (e) => {
     e.preventDefault();
@@ -49,7 +51,7 @@ function Profile({ userData, setCurrentTrip }) {
       }),
     })
       .then((res) => res.json())
-      .then((res) => console.log(res));
+      .then((res) => handleSavingToDatabase(res));
   };
 
   const handleChange = (event) => {
@@ -229,6 +231,9 @@ function Profile({ userData, setCurrentTrip }) {
               )}
           </form>
         ) : <Redirect to="/" />}
+      <span>
+        {isSaved ? 'Your trip was saved in the database' : ''}
+      </span>
     </div>
   );
 }

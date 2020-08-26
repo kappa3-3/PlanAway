@@ -5,6 +5,7 @@ const password = process.env.MONGO_PASS;
 const db = process.env.MONGO_DB;
 
 async function getData(trip) {
+	console.log(trip);
 	const uri = `mongodb+srv://${dbuser}:${password}@pacluster.1truh.mongodb.net/${db}?retryWrites=true&w=majority`;
 	const client = new MongoClient(uri, {
 		useNewUrlParser: true,
@@ -16,17 +17,16 @@ async function getData(trip) {
 			.db('usersdb')
 			.collection('users')
 			.updateOne(
-				{ _id : ObjectID(trip.id) },
-				{$push: { 
-					plans: 
-					{$push: {
-							flights: [ trip ]
-						}
-					}
-				}},
-		 )
-		 const { matchedCount, modifiedCount } = result;
-		return ({ matchedCount, modifiedCount});
+				{ _id : ObjectID(trip.id) , "plans.name": trip.name },
+				{
+					$push: {
+					"plans.$.flights": trip.flight
+				}
+				},
+				{}
+			)
+		const { matchedCount, modifiedCount } = result;
+		return ({ matchedCount, modifiedCount });
 	} catch (err) {
 		console.log(err);
 		await client.close();

@@ -25,7 +25,6 @@ async function getPlace(place) {
 }
 
 exports.handler = async function (event) {
-  console.log(event.body);
   try {
     const places = await getPlace(event.body);
     return {
