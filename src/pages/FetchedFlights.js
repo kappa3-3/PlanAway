@@ -1,12 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AddIcon from '@material-ui/icons/Add';
 import Flight from '../components/Flight';
 import StaticInfo from '../components/StaticInfo';
 import './FetchedFlights.css';
 
-const FetchedFlights = ({ data }) => {
+const FetchedFlights = ({ data, trip }) => {
   const carriers = data.Carriers;
+  const saveToDatabase = (e, flight) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/flights', {
+      method: 'POST',
+      body: JSON.stringify(
+        flight,
+      ),
+    }).then((res) => res.json())
+      .then((res) => console.log(res));
+  };
 
   function checkCarrierId(inFlight) {
     let carrierName = '';
@@ -39,7 +50,7 @@ const FetchedFlights = ({ data }) => {
   }
 
   return (
-    <>
+    <div className="flex-flights">
       {data.Quotes.length > 0
         ? (
           <div className="all-flights">
@@ -66,20 +77,62 @@ const FetchedFlights = ({ data }) => {
               />
             ))}
           </div>
-        )
-        : (
-          <StaticInfo msg="There are no flights that day." />
-        )}
-    </>
+        ) : <StaticInfo msg="There are no flights that day." />}
+      <div className="chosen-flights-wrapper">
+        <h2>Chosen flights:</h2>
+        {trip.flights
+          ? (
+            <>
+              {trip.flights.map((flight) => (
+                <div>
+                  <h3>{flight.connection}</h3>
+                  <p>
+                    price: €
+                    {flight.price}
+                  </p>
+                  <p>
+                    Departure:
+                    {flight.out}
+                    (
+                    {flight.carrierIn}
+                    )
+                  </p>
+                  <p>
+                    Arrival:
+                    {flight.in}
+                    (
+                    {flight.carrierOut}
+                    )
+                  </p>
+                  <button
+                    type="button"
+                    className="saveTripButton"
+                    onClick={(e) => saveToDatabase(e, flight)}
+                  >
+                    {trip.currentTrip.toUpperCase()}
+                    <AddIcon style={{ color: 'white' }} />
+                  </button>
+                </div>
+              ))}
+            </>
+          ) : ''}
+      </div>
+    </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   data: state.flightsData,
+  trip: state.tripsData,
 });
 
 FetchedFlights.propTypes = {
   data: PropTypes.objectOf().isRequired,
+  trip: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
 };
 
 export default connect(mapStateToProps)(FetchedFlights);
