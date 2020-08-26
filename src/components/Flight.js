@@ -9,7 +9,8 @@ import './Flight.css';
 
 const Flight = ({
   carrierIn, isDirect, carrierOut, price, currency,
-  departurePlace, arrivalPlace, departureDate, arrivalDate, departureCity, arrivalCity, setConnection
+  departurePlace, arrivalPlace, departureDate, arrivalDate,
+  departureCity, arrivalCity, setConnection,
 }) => {
   const [toggleButton, setToggleButton] = useState(false);
 
@@ -24,7 +25,7 @@ const Flight = ({
       carrierIn,
       carrierOut,
     });
-  }
+  };
 
   return (
     <div className="flights">
@@ -84,8 +85,9 @@ Flight.propTypes = {
   arrivalPlace: PropTypes.string.isRequired,
   departureDate: PropTypes.string.isRequired,
   arrivalDate: PropTypes.string.isRequired,
+  departureCity: PropTypes.string.isRequired,
+  arrivalCity: PropTypes.string.isRequired,
+  setConnection: PropTypes.func.isRequired,
 };
 
-
 export default connect(null, { setConnection: addConnection })(Flight);
-
