@@ -7,7 +7,7 @@ async function getData(info) {
     const {
       departureDate, returnDate, fromPlaceId, toPlaceId,
     } = info;
-    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}/${returnDate}`);
+    const req = unirest("GET", `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/NL/EUR/en-GB/${fromPlaceId}/${toPlaceId}/${departureDate}/${returnDate}`);
 
     req.headers({
       "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com",
@@ -25,6 +25,7 @@ async function getData(info) {
 }
 
 exports.handler = async function (event) {
+  console.log(event.body);
   try {
     const destinations = await getData(JSON.parse(event.body));
     return {
