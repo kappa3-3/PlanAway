@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
+import dateFormatter from '../assets/functions/dateFormatter';
 
 const ChosenFlights = ({ trip, id }) => {
   const [isSaved, setIsSaved] = useState(false);
@@ -20,6 +21,7 @@ const ChosenFlights = ({ trip, id }) => {
     }).then((res) => res.json())
       .then((res) => handleSavingToDatabase(res));
   };
+
   return (
     <div className="chosen-flights-wrapper">
       <h2>Chosen flights:</h2>
@@ -35,14 +37,14 @@ const ChosenFlights = ({ trip, id }) => {
                 </p>
                 <p>
                   Departure:
-                  {flight.out}
+                  {dateFormatter(flight.out)}
                   (
                   {flight.carrierIn}
                   )
                 </p>
                 <p>
                   Arrival:
-                  {flight.in}
+                  {dateFormatter(flight.in)}
                   (
                   {flight.carrierOut}
                   )
