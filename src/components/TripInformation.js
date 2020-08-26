@@ -10,7 +10,7 @@ function TripInformation({ plan }) {
         ? (
           <div className="trip_details_wrapper">
             {plan.flights.map((flight) => (
-              <>
+              <div key={flight.connection}>
                 <p>
                   <span>Connection:</span>
                 </p>
@@ -26,7 +26,7 @@ function TripInformation({ plan }) {
                   <span>Return:</span>
                   <span>{dateFormatter(flight.in)}</span>
                 </p>
-              </>
+              </div>
             ))}
           </div>
         ) : <p className="trip_details_wrapper">No flights added yet.</p>}
@@ -38,6 +38,7 @@ TripInformation.propTypes = {
   plan: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
+    PropTypes.array,
   ])).isRequired,
 };
 

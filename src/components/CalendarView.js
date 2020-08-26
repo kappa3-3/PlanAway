@@ -12,12 +12,12 @@ function CalendarView({ month, tripDates }) {
       <Calendar
         view="month"
         onDrillDown={() => 'a'}
-        tileClassName={({ date, view }) => tripDates.map((trip) => {
-          const startDate = new Date(trip.start_date);
-          const endDate = new Date(trip.end_date);
+        tileClassName={({ date, view }) => tripDates.map((plan) => {
+          const startDate = new Date(plan.out);
+          const endDate = new Date(plan.in);
           if (view === 'month'
             && date >= startDate
-            && date <= endDate) return trip.className;
+            && date <= endDate) return plan.className;
           return null;
         })}
         showNavigation={false}

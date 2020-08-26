@@ -3,12 +3,24 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import dateFormatter from '../assets/functions/dateFormatter';
+import { setUserData } from '../actions/userData';
 
-const ChosenFlights = ({ trip, id }) => {
+const ChosenFlights = ({ trip, id, updateUser }) => {
   const [isSaved, setIsSaved] = useState(false);
+
+  const handleRetrieveFromDB = () => {
+    fetch('/.netlify/functions/update', {
+      method: 'POST',
+      body: JSON.stringify({ id }),
+    }).then((res) => res.json())
+      .then((res) => {
+        if (res !== null) updateUser(res);
+      });
+  };
   const handleSavingToDatabase = (res) => {
     const { matchedCount, modifiedCount } = res;
     setIsSaved(matchedCount === 1 && modifiedCount === 1);
+    if (matchedCount === 1 && modifiedCount === 1) handleRetrieveFromDB();
   };
 
   const saveToDatabase = (e, flight) => {
@@ -79,6 +91,7 @@ ChosenFlights.propTypes = {
     PropTypes.array,
   ])).isRequired,
   id: PropTypes.string.isRequired,
+  updateUser: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(ChosenFlights);
+export default connect(mapStateToProps, { updateUser: setUserData })(ChosenFlights);

@@ -15,8 +15,8 @@ import { setUserData } from '../actions/userData';
 const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
   const [isName, setisName] = useState(false);
   const [newTrip, setNewTrip] = useState('');
-  const [isSaved, setIsSaved] = useState(false);
   const [Input, setInput] = useState('');
+  const [isSaved, setIsSaved] = useState(false);
 
   const handleRetrieveFromDB = () => {
     fetch('/.netlify/functions/update', {
@@ -30,8 +30,8 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
 
   const handleSavingToDatabase = (res) => {
     const { matchedCount, modifiedCount } = res;
-    setIsSaved(matchedCount === 1 && modifiedCount === 1);
-    handleRetrieveFromDB();
+    if (matchedCount === 1 && modifiedCount === 1) handleRetrieveFromDB();
+    setIsSaved(true);
   };
 
   const handleTripName = (e) => {
@@ -123,13 +123,10 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
             </div>
           </>
         )}
+      <span className={isSaved ? 'saved-in-db' : ''} />
     </FormControl>
   );
 };
-
-// const mapStateToProps = (state) => ({
-//   userData: state.userData,
-// });
 
 ExistingTrips.propTypes = {
   userData: PropTypes.objectOf(PropTypes.oneOfType([
