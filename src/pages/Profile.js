@@ -43,7 +43,7 @@ function Profile({ userData, setCurrentTrip, trip }) {
   const handleNewTrip = (e) => {
     e.preventDefault();
     setisName(false);
-    chooseTrip(newTrip);
+    setCurrentTrip(newTrip);
     fetch('/.netlify/functions/trips', {
       method: 'POST',
       body: JSON.stringify({
