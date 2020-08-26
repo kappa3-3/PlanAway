@@ -10,13 +10,15 @@ import './Flight.css';
 const Flight = ({
   carrierIn, isDirect, carrierOut, price, currency,
   departurePlace, arrivalPlace, departureDate, arrivalDate,
-  departureCity, arrivalCity, setConnection,
+  departureCity, arrivalCity, setConnection, auth, trip,
 }) => {
   const [toggleButton, setToggleButton] = useState(false);
+  const [isClicked, setisClicked] = useState(false);
 
   const addFlightToTrip = (e) => {
     e.preventDefault();
     setToggleButton(!toggleButton);
+    setisClicked(true);
     setConnection({
       connection: `${departureCity} - ${arrivalCity}`,
       out: departureDate,
@@ -61,19 +63,31 @@ const Flight = ({
           <span>{currency}</span>
           {price}
         </h1>
-        <Tooltip title="Add to trip: Hawai" placement="right">
-          <button
-            type="button"
-            className="button"
-            onClick={(e) => addFlightToTrip(e)}
-          >
-            {toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
-          </button>
+        <Tooltip
+          title={auth ? `Add to trip:${trip.currentTrip.toUpperCase()}` : 'Please log in or sign up to save flights'}
+          placement="right"
+        >
+          <span>
+            <button
+              style={isClicked || !auth ? { pointerEvents: 'none' } : {}}
+              type="button"
+              className="button"
+              disabled={isClicked || !auth}
+              onClick={(e) => addFlightToTrip(e)}
+            >
+              {toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
+            </button>
+          </span>
         </Tooltip>
       </div>
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({
+  auth: state.isAuth,
+  trip: state.tripsData,
+});
 
 Flight.propTypes = {
   carrierIn: PropTypes.string.isRequired,
@@ -88,6 +102,12 @@ Flight.propTypes = {
   departureCity: PropTypes.string.isRequired,
   arrivalCity: PropTypes.string.isRequired,
   setConnection: PropTypes.func.isRequired,
+  auth: PropTypes.bool.isRequired,
+  trip: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
 };
 
-export default connect(null, { setConnection: addConnection })(Flight);
+export default connect(mapStateToProps, { setConnection: addConnection })(Flight);

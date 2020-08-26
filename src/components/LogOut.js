@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import * as authActions from '../actions/auth';
 import * as userData from '../actions/userData';
+import { clearConnection } from '../actions/trips';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LogOut({ removeUserData, denied }) {
+function LogOut({ removeUserData, denied, clearTrips }) {
   const handleLogOut = (e) => {
     e.preventDefault();
     removeUserData();
+    clearTrips();
     denied();
   };
 
@@ -41,6 +43,7 @@ function LogOut({ removeUserData, denied }) {
 LogOut.propTypes = {
   removeUserData: PropTypes.func.isRequired,
   denied: PropTypes.func.isRequired,
+  clearTrips: PropTypes.func.isRequired,
 };
 
-export default connect(null, { ...authActions, ...userData })(LogOut);
+export default connect(null, { clearTrips: clearConnection, ...authActions, ...userData })(LogOut);

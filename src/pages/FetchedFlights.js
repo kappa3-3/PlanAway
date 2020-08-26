@@ -79,12 +79,12 @@ const FetchedFlights = ({ data, trip }) => {
           </div>
         ) : <StaticInfo msg="There are no flights that day." />}
       <div className="chosen-flights-wrapper">
-        <h2>Chosen flights:</h2>
         {trip.flights
           ? (
             <>
+              <h2>Chosen flights:</h2>
               {trip.flights.map((flight) => (
-                <div>
+                <div style={{ padding: '15px' }}>
                   <h3>{flight.connection}</h3>
                   <p>
                     price: €

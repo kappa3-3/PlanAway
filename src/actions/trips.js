@@ -12,3 +12,8 @@ export const deleteConnection = (connection) => ({
   type: 'DELETE_CONNECTION',
   connection,
 });
+
+export const clearConnection = (connection) => ({
+  type: 'CLEAR_CONNECTION',
+  connection,
+});
