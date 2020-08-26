@@ -1,27 +1,84 @@
+.flex {
+  display: flex;
+}
+
+.overflow-scroll {
+  overflow-x: scroll;
+  /* position: absolute; */
+  /* top: 53px; */
+  /* left: 45px; */
+  width: 95vw;
+  height: fit-content;
+  background-color: rgba(255, 255, 255, 75%);
+  border-radius: 10px;
+}
+
+.yearly-title {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 75%);
+  border-radius: 10px;
+}
+
+/* calendar */
+
+.flex-width {
+  padding: 10px;
+  width: 230px;
+}
+
+.tile-bg-0 {
+  background-color: rgba(200, 150, 200, 75%);
+}
+
+.tile-bg-1 {
+  background-color: rgba(120, 200, 200, 75%);
+}
+
+.tile-bg-2 {
+  background-color: rgba(200, 200, 160, 75%);
+}
+
+.tile-bg-3 {
+  background-color: rgba(248, 253, 174, 0.75);
+}
+
+.tile-bg-4 {
+  background-color: rgba(79, 77, 224, 0.75);
+}
+
+.tile-bg-5 {
+  background-color: rgba(231, 142, 40, 0.75);
+}
+
+.month-title {
+  margin: 0;
+  padding: 10px 0;
+}
+
+/* Trip information */
+
 .flex-wrap {
   display: flex;
   flex-wrap: wrap;
 }
 
-.flex-width {
-  padding: 15px;
-  width: 230px;
+.trip_container {
+  margin: 5px;
+  min-width: 210px;
+}
+
+.trip_details_wrapper {
   background-color: rgba(255, 255, 255, 75%);
+  border-radius: 0 0 10px 10px;
+  padding: 5px;
+  overflow-y: scroll;
+  height: 20vh;
 }
 
-.overflow-scroll {
-  overflow-y: scroll; 
-  position: absolute;
-  top: 53px;
-  left: 45px;
-  width: 75vw;
-  height: 90vh;
-}
-
-.tile-bg {
-  background-color: rgba(200, 200, 200, .65);
-}
-
-.planAway-wrapper {
-  display: flex;
+.trip_title {
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 0;
+  padding: 10px;
+  color: #fff;
 }

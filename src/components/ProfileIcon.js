@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     '& > *': {
-      margin: theme.spacing(.5),
+      margin: theme.spacing(0.5),
     },
   },
   pink: {
@@ -41,7 +41,11 @@ const mapStateToProps = (state) => ({
 });
 
 ProfileIcon.propTypes = {
-  userData: PropTypes.objectOf().isRequired,
+  userData: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
 };
 
 export default connect(mapStateToProps)(ProfileIcon);

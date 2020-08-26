@@ -15,9 +15,9 @@ async function getData(info) {
       useQueryString: true,
     });
 
-
     req.end((res) => res.body);
     const data = await req;
+
     return data.body;
   } catch (err) {
     throw (err.message);
@@ -25,6 +25,7 @@ async function getData(info) {
 }
 
 exports.handler = async function (event) {
+  console.log(event.body);
   try {
     const destinations = await getData(JSON.parse(event.body));
     return {
@@ -32,6 +33,7 @@ exports.handler = async function (event) {
       body: JSON.stringify(destinations),
     };
   } catch (err) {
+    console.log(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ msg: err.message }),

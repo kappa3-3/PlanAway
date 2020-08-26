@@ -29,9 +29,9 @@ function Navigation({ auth, currentTrip }) {
         {currentTrip
           ? (
             <li className="navigation-static">
-              CurrentTrip :
+              CurrentTrip:
               <span className="accent-color">
-                {currentTrip}
+                {` ${currentTrip}`}
               </span>
             </li>
           ) : ''}
@@ -72,7 +72,11 @@ function Navigation({ auth, currentTrip }) {
 
 Navigation.propTypes = {
   auth: PropTypes.bool.isRequired,
-  currentTrip: PropTypes.string.isRequired,
+  currentTrip: PropTypes.string,
+};
+
+Navigation.defaultProps = {
+  currentTrip: '',
 };
 
 const mapStateToProps = (state) => ({

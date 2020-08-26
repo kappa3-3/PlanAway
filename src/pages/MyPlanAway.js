@@ -6,21 +6,36 @@ import CalendarView from '../components/CalendarView';
 import TripInformation from '../components/TripInformation';
 import './MyPlanAway.css';
 
-function MyPlanAway({ auth, plans }) {
+function MyPlanAway({
+  auth, plans,
+}) {
+  const tripDates = plans.map(({ flights }, i) => ({ className: `tile-bg-${i}`, out: flights[0].out, in: flights[0].in }));
+  const tripInfo = plans.map(({ name, flights }, i) => ({ name, className: `tile-bg-${i}`, flights }));
   return (
     <div>
+      <h3 className="yearly-title">Yearly overview</h3>
       <div className="overflow-scroll">
-        <h1>Hello it is the MyPlanAway page</h1>
         {auth
           ? (
-            <div className="flex-wrap">
-              {[...new Array(12)].map((m, i) => <CalendarView month={new Date(2020, i, 1)} />)}
+            <div className="flex">
+              {[...new Array(12)].map((m, i) => (
+                <CalendarView
+                  key={m}
+                  month={new Date(2020, i, 1)}
+                  tripDates={tripDates}
+                />
+              ))}
             </div>
           )
           : <Redirect to="/account/login" />}
       </div>
-      <div>
-        {plans.map((plan) => <TripInformation plan={plan} />)}
+      <div className="flex-wrap">
+        {tripInfo.map((plan) => (
+          <TripInformation
+            plan={plan}
+            key={plan.name}
+          />
+        ))}
       </div>
     </div>
   );
@@ -33,7 +48,9 @@ const mapStateToProps = (state) => ({
 
 MyPlanAway.propTypes = {
   auth: PropTypes.bool.isRequired,
-  plans: PropTypes.objectOf().isRequired,
+  plans: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.object,
+  ])).isRequired,
 };
 
 export default connect(mapStateToProps)(MyPlanAway);

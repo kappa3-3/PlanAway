@@ -56,10 +56,12 @@
         "error",
         {
           "allow": [
-            "__REDUX_DEVTOOLS_EXTENSION__"
+            "__REDUX_DEVTOOLS_EXTENSION__",
+            "_id"
           ]
         }
-      ]
+      ],
+      "react/jsx-props-no-spreading": 0
     }
   },
   "browserslist": {

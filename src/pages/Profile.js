@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import * as trips from '../actions/trips';
+import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
+import EditIcon from '@material-ui/icons/Edit';
+import ProfileInfo from '../components/ProfileInfo';
+import EditProfile from '../components/EditProfile';
+import ExistingTrips from '../components/ExistingTrips';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,133 +20,54 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Profile({ userData, chooseTrip }) {
-  const [edit, setEdit] = useState(false);
+function Profile({ userData, trip }) {
   const classes = useStyles();
-
-  const handleChange = (event) => {
-    chooseTrip(event.target.value);
-  };
+  const [edit, setEdit] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   return (
     <div>
       {userData !== null
         ? (
           <form className={classes.root} noValidate autoComplete="off">
-            {edit
-              ? (
-                <div className="Profile-wrapper">
-                  <div>
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="first name"
-                      defaultValue={userData.first_name}
-                      variant="outlined"
-                    />
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="last name"
-                      defaultValue={userData.last_name}
-                      variant="outlined"
-                    />
-                  </div>
-                  <div>
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="email adress"
-                      defaultValue={userData.email_address}
-                      variant="outlined"
-                    />
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Required"
-                      defaultValue={userData.vacation_days}
-                      variant="outlined"
-                    />
-                  </div>
-                  <div className="Profile-btn">
-                    <Button
-                      variant="contained"
-                      color="default"
-                      className={classes.button}
-                      type="submit"
-                      onClick={() => setEdit(false)}
-                    >
-                      <span>Save changes</span>
-                    </Button>
-                  </div>
-                </div>
-              )
-              : (
-                <div className="Profile-wrapper">
-                  <div>
-                    <TextField
-                      id="standard-read-only-input"
-                      label="first name"
-                      defaultValue={userData.first_name}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                    <TextField
-                      id="standard-read-only-input"
-                      label="last name"
-                      defaultValue={userData.last_name}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <TextField
-                      id="standard-read-only-input"
-                      label="email address"
-                      defaultValue={userData.email_address}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                    <TextField
-                      id="standard-number"
-                      label="vacation days"
-                      type="number"
-                      defaultValue={userData.vacation_days}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </div>
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">Current trip</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
-                      {userData.plans.map((plan) => (
-                        <FormControlLabel
-                          value={plan.name}
-                          control={<Radio />}
-                          label={plan.name}
-                        />
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                  <div className="Profile-btn">
+            <div className="Profile-wrapper">
+              <EditIcon style={{ color: '#E91E62' }} onClick={() => setEdit(true)} />
+              {edit
+                ? (
+                  <>
+                    <EditProfile />
+                    <div className="Profile-btn">
+                      <Button
+                        variant="contained"
+                        color="default"
+                        className={classes.button}
+                        type="button"
+                        onClick={() => setEdit(false)}
+                      >
+                        <span>Save changes</span>
+                      </Button>
+                    </div>
+                  </>
+                )
+                : <ProfileInfo />}
+              <ExistingTrips userData={userData} />
+              {trip.currentTrip
+                ? (
+                  <div className="search-btn">
                     <Button
                       variant="contained"
                       color="secondary"
                       className={classes.button}
-                      endIcon={<EditIcon />}
-                      type="submit"
-                      onClick={() => setEdit(true)}
+                      endIcon={<FlightTakeOffIcon />}
+                      type="button"
+                      onClick={() => setRedirect(true)}
                     >
-                      <span>Edit Profile</span>
+                      Search Flights
                     </Button>
                   </div>
-                </div>
-
-              )}
+                ) : ''}
+            </div>
+            {redirect ? <Redirect to="/flights" /> : ''}
           </form>
         ) : <Redirect to="/" />}
     </div>
@@ -158,11 +76,20 @@ function Profile({ userData, chooseTrip }) {
 
 const mapStateToProps = (state) => ({
   userData: state.userData,
+  trip: state.tripsData,
 });
 
 Profile.propTypes = {
-  userData: PropTypes.objectOf().isRequired,
-  chooseTrip: PropTypes.func.isRequired,
+  trip: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
+  userData: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ])).isRequired,
 };
 
-export default connect(mapStateToProps, { ...trips })(Profile);
+export default connect(mapStateToProps)(Profile);

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -11,8 +12,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { connect } from 'react-redux';
-import { storeFlights } from '../actions/flights';
 import { Redirect } from 'react-router-dom';
+import { storeFlights } from '../actions/flights';
 import './Search.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = ({ storeFlights }) => {
+const Search = ({ setFlights }) => {
   const [departureDate, setDepartureDate] = useState();
   const [returnDate, setReturnDate] = useState();
   const [places, setPlaces] = useState([]);
@@ -63,7 +64,7 @@ const Search = ({ storeFlights }) => {
 
   const defaultProps = {
     options: places,
-    getOptionLabel: (place) => `${place.PlaceName} (${place.PlaceId.slice(0, 3)}), ${place.CountryName}`
+    getOptionLabel: (place) => `${place.PlaceName} (${place.PlaceId.slice(0, 3)}), ${place.CountryName}`,
   };
 
   const fetchDestinations = (e) => {
@@ -74,8 +75,8 @@ const Search = ({ storeFlights }) => {
         departureDate, returnDate, fromPlaceId, toPlaceId,
       }),
     }).then((res) => res.json())
-      .then((res) => storeFlights(res))
-      .then(() => setRedirect(true))
+      .then((res) => setFlights(res))
+      .then(() => setRedirect(true));
   };
 
   return (
@@ -180,12 +181,13 @@ const Search = ({ storeFlights }) => {
           </div>
         </MuiPickersUtilsProvider>
       </form>
-      {redirect ? < Redirect to = '/flights' /> : ''}
+      {redirect ? <Redirect to="/flights" /> : ''}
     </div>
   );
 };
 
+Search.propTypes = {
+  setFlights: PropTypes.func.isRequired,
+};
 
-export default connect(null, { storeFlights })(Search);
-// export default Search;
-
+export default connect(null, { setFlights: storeFlights })(Search);

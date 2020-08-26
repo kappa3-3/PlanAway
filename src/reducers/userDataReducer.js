@@ -1,7 +1,7 @@
 const userDataReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_USER_DATA':
-      return ({ ...action.data });
+      return (action.data);
     case 'REMOVE_USER_DATA':
       return (
         null
