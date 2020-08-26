@@ -2,14 +2,26 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
+
+import EditIcon from '@material-ui/icons/Edit';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+import AddIcon from '@material-ui/icons/Add';
+import KeyboardBackspaceRoundedIcon from '@material-ui/icons/KeyboardBackspaceRounded';
+import ProfileInfo from '../components/ProfileInfo';
+import EditProfile from '../components/EditProfile';
+import { chooseTrip } from '../actions/trips';
+
 import { setUserData } from '../actions/userData';
 import ProfileInfo from '../components/ProfileInfo';
 import ExistingTrips from '../components/ExistingTrips';
+
 
 import './Profile.css';
 
@@ -25,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function Profile({ userData, trip }) {
   const classes = useStyles();
   const [edit, setEdit] = useState(false);
+
   const [isSaved, setIsSaved] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
@@ -33,88 +46,45 @@ function Profile({ userData, trip }) {
       {userData !== null
         ? (
           <form className={classes.root} noValidate autoComplete="off">
-            {edit
-              ? (
-                <div className="Profile-wrapper">
-                  <div>
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="first name"
-                      defaultValue={userData.first_name}
-                      variant="outlined"
-                    />
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="last name"
-                      defaultValue={userData.last_name}
-                      variant="outlined"
-                    />
-                  </div>
-                  <div>
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="email adress"
-                      defaultValue={userData.email_address}
-                      variant="outlined"
-                    />
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Required"
-                      defaultValue={userData.vacation_days}
-                      variant="outlined"
-                    />
-                  </div>
-                  <div className="Profile-btn">
-                    <Button
-                      variant="contained"
-                      color="default"
-                      className={classes.button}
-                      type="button"
-                      onClick={() => setEdit(false)}
-                    >
-                      <span>Save changes</span>
-                    </Button>
-                  </div>
-                </div>
-              )
-              : (
-                <div className="Profile-wrapper">
-                  <ProfileInfo />
-                  <ExistingTrips userData={userData} />
-                  <div className="Profile-btn">
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={classes.button}
-                      endIcon={<EditIcon />}
-                      type="button"
-                      onClick={() => setEdit(true)}
-                    >
-                      <span>Edit Profile</span>
-                    </Button>
-                  </div>
-                  {trip.currentTrip
-                    ? (
-                      <div className="search-btn">
+              <div className="Profile-wrapper">
+                <EditIcon style={{ color: '#E91E62' }} onClick={() => setEdit(true)} />
+                {edit
+                  ? (
+                    <>
+                      <EditProfile />
+                      <div className="Profile-btn">
                         <Button
                           variant="contained"
-                          color="secondary"
+                          color="default"
                           className={classes.button}
-                          endIcon={<FlightTakeOffIcon />}
                           type="button"
-                          onClick={() => setRedirect(true)}
+                          onClick={() => setEdit(false)}
                         >
-                          Search Flights
+                          <span>Save changes</span>
                         </Button>
                       </div>
-                    ) : ''}
-                  <span className={isSaved ? 'saved-in-db' : ''} />
-                </div>
-              )}
+                    </>
+                  )
+                  : <ProfileInfo />}
+                <ExistingTrips userData={userData}/
+                {trip.currentTrip
+                  ? (
+                    <div className="search-btn">
+                      <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        endIcon={<FlightTakeOffIcon />}
+                        type="button"
+                        onClick={() => setRedirect(true)}
+                      >
+                        Search Flights
+                        </Button>
+                    </div>
+                  ) : ''}
+                <span className={isSaved ? 'saved-in-db' : ''} />
+              </div>
+            }
             {redirect ? <Redirect to="/flights" /> : ''}
           </form>
         ) : <Redirect to="/" />}
