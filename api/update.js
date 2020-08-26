@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectID } = require('mongodb');
 const dbuser = process.env.MONGO_USER;
 const password = process.env.MONGO_PASS;
 const db = process.env.MONGO_DB;
@@ -15,7 +15,7 @@ async function getData(user) {
     const result = await client
       .db('usersdb')
       .collection('users')
-      .findOne({_id : ObjectID(user)});
+      .findOne({ _id : ObjectID(user.id) });
     return result;
   } catch (err) {
     console.log(err);
@@ -24,8 +24,10 @@ async function getData(user) {
 }
 
 exports.handler = async function (event, context) {
+  console.log(event.body);
   try {
     const data = await getData(JSON.parse(event.body));
+    console.log(data);
     if ( data !== null) {
       const {email_address, first_name, last_name, vacation_days, _id, plans} = data;
       return {
