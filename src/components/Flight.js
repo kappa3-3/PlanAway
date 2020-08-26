@@ -9,7 +9,8 @@ import './Flight.css';
 
 const Flight = ({
   carrierIn, isDirect, carrierOut, price, currency,
-  departurePlace, arrivalPlace, departureDate, arrivalDate, departureCity, arrivalCity, setConnection
+  departurePlace, arrivalPlace, departureDate, arrivalDate,
+  departureCity, arrivalCity, setConnection,
 }) => {
   const [toggleButton, setToggleButton] = useState(false);
 
@@ -18,19 +19,13 @@ const Flight = ({
     setToggleButton(!toggleButton);
     setConnection({
       connection: `${departureCity} - ${arrivalCity}`,
-        out: departureDate,
-        in: arrivalDate,
+      out: departureDate,
+      in: arrivalDate,
+      price,
+      carrierIn,
+      carrierOut,
     });
-    // fetch('/.netlify/functions/flights', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     connection: `${departureCity} - ${arrivalCity}`,
-    //     out: departureDate,
-    //     in: arrivalDate,
-    //   }),
-    // }).then((res) => res.json())
-    //   .then((res) => console.log(res));
-  }
+  };
 
   return (
     <div className="flights">
@@ -67,12 +62,12 @@ const Flight = ({
           {price}
         </h1>
         <Tooltip title="Add to trip: Hawai" placement="right">
-          <button 
-            type="button" 
-            className="button" 
+          <button
+            type="button"
+            className="button"
             onClick={(e) => addFlightToTrip(e)}
           >
-            { toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
+            {toggleButton ? <FilledIcon style={{ color: '#C71062' }} /> : <FavoriteIcon style={{ color: '#C71062' }} />}
           </button>
         </Tooltip>
       </div>
@@ -90,8 +85,9 @@ Flight.propTypes = {
   arrivalPlace: PropTypes.string.isRequired,
   departureDate: PropTypes.string.isRequired,
   arrivalDate: PropTypes.string.isRequired,
+  departureCity: PropTypes.string.isRequired,
+  arrivalCity: PropTypes.string.isRequired,
+  setConnection: PropTypes.func.isRequired,
 };
 
-
 export default connect(null, { setConnection: addConnection })(Flight);
-

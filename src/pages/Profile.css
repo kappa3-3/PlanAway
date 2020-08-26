@@ -8,8 +8,20 @@
 .Profile-btn {
   margin-top: 15px;
 }
+.buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
 
 .saveTripButton {
+  margin-left: 5px;
+}
+
+.goBackButton {
+  margin-right: 5px;
+}
+
+.saveTripButton, .goBackButton {
   display: flex;
   align-items: center;
   background-color:#f50057;

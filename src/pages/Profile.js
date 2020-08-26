@@ -11,8 +11,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import { chooseTrip } from '../actions/trips';
 import AddIcon from '@material-ui/icons/Add';
+import KeyboardBackspaceRoundedIcon from '@material-ui/icons/KeyboardBackspaceRounded';
+import { chooseTrip } from '../actions/trips';
 import './Profile.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +29,7 @@ function Profile({ userData, setCurrentTrip }) {
   const [edit, setEdit] = useState(false);
   const [newTrip, setNewTrip] = useState('');
   const [isName, setisName] = useState(false);
+  const [Input, setInput] = useState('');
   const classes = useStyles();
 
   useEffect(() => {
@@ -55,7 +57,12 @@ function Profile({ userData, setCurrentTrip }) {
   };
 
   const handleTripName = (e) => {
+    setInput(e.target.value);
     setNewTrip(e.target.value);
+  };
+
+  const handleGoBack = () => {
+    setisName(false);
   };
 
   return (
@@ -179,14 +186,25 @@ function Profile({ userData, setCurrentTrip }) {
                               onChange={(e) => handleTripName(e)}
                               variant="outlined"
                             />
-                            <button
-                              type="button"
-                              className="saveTripButton"
-                              onClick={(e) => handleNewTrip(e)}
-                            >
-                              ADD TRIP
-                              <AddIcon style={{ color: 'white' }} />
-                            </button>
+                            <div className="buttons">
+                              <button
+                                type="button"
+                                className="saveTripButton"
+                                disabled={Input.length === 0}
+                                onClick={(e) => handleNewTrip(e)}
+                              >
+                                ADD TRIP
+                                <AddIcon style={{ color: 'white' }} />
+                              </button>
+                              <button
+                                type="button"
+                                className="goBackButton"
+                                onClick={() => handleGoBack()}
+                              >
+                                GO BACK
+                                <KeyboardBackspaceRoundedIcon style={{ color: 'white' }} />
+                              </button>
+                            </div>
                           </div>
                         </>
                       )}
