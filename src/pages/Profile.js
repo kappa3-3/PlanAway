@@ -14,6 +14,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import AddIcon from '@material-ui/icons/Add';
 import KeyboardBackspaceRoundedIcon from '@material-ui/icons/KeyboardBackspaceRounded';
+import ProfileInfo from '../components/ProfileInfo';
 import { chooseTrip } from '../actions/trips';
 import './Profile.css';
 
@@ -114,7 +115,7 @@ function Profile({ userData, setCurrentTrip, trip }) {
                       variant="contained"
                       color="default"
                       className={classes.button}
-                      type="submit"
+                      type="button"
                       onClick={() => setEdit(false)}
                     >
                       <span>Save changes</span>
@@ -124,43 +125,7 @@ function Profile({ userData, setCurrentTrip, trip }) {
               )
               : (
                 <div className="Profile-wrapper">
-                  <div>
-                    <TextField
-                      id="standard-read-only-input"
-                      label="first name"
-                      defaultValue={userData.first_name}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                    <TextField
-                      id="standard-read-only-input"
-                      label="last name"
-                      defaultValue={userData.last_name}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </div>
-                  <div className="user-details">
-                    <TextField
-                      id="standard-read-only-input"
-                      label="email address"
-                      defaultValue={userData.email_address}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                    <TextField
-                      id="standard-number"
-                      label="vacation days"
-                      type="number"
-                      defaultValue={userData.vacation_days}
-                      InputProps={{
-                        readOnly: true,
-                      }}
-                    />
-                  </div>
+                  <ProfileInfo />
                   <FormControl component="fieldset" className="trip-form">
                     <FormLabel component="legend">Select current trip:</FormLabel>
                     <RadioGroup aria-label="gender" name="gender1" onChange={handleChange}>
@@ -221,7 +186,7 @@ function Profile({ userData, setCurrentTrip, trip }) {
                           color="secondary"
                           className={classes.button}
                           endIcon={<EditIcon />}
-                          type="submit"
+                          type="button"
                           onClick={() => setEdit(true)}
                         >
                           <span>Edit Profile</span>
@@ -243,14 +208,12 @@ function Profile({ userData, setCurrentTrip, trip }) {
                         </Button>
                       </div>
                     ) : ''}
+                  <span className={isSaved ? 'saved-in-db' : ''} />
                 </div>
               )}
             {redirect ? <Redirect to="/flights" /> : ''}
           </form>
         ) : <Redirect to="/" />}
-      <span>
-        {isSaved ? 'Your trip was saved in the database' : ''}
-      </span>
     </div>
   );
 }
