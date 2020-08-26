@@ -15,8 +15,14 @@
   min-width: fit-content;
   box-sizing: border-box;
   margin-left: 20px;
+  padding: 15px;
 }
 
 .flex-flights {
   display: flex;
+}
+
+.saveTripButton {
+  margin: auto;
+  margin-bottom: 100px;
 }

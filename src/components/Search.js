@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import FlightTakeOffIcon from '@material-ui/icons/FlightTakeoff';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import storeFlights from '../actions/flights';
+import { storeFlights } from '../actions/flights';
 import './Search.css';
 
 const useStyles = makeStyles((theme) => ({

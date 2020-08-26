@@ -8,7 +8,7 @@ import { addConnection } from '../actions/trips';
 import './Flight.css';
 
 const Flight = ({
-  carrierIn, isDirect, carrierOut, price, currency,
+  carrierIn, isDirect, carrierOut, price,
   departurePlace, arrivalPlace, departureDate, arrivalDate,
   departureCity, arrivalCity, setConnection, auth, trip,
 }) => {
@@ -68,7 +68,7 @@ const Flight = ({
       </div>
       <div className="price">
         <h1>
-          <span>{currency}</span>
+          <span>€</span>
           {price}
         </h1>
         <Tooltip
@@ -102,7 +102,6 @@ Flight.propTypes = {
   isDirect: PropTypes.bool.isRequired,
   carrierOut: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  currency: PropTypes.string.isRequired,
   departurePlace: PropTypes.string.isRequired,
   arrivalPlace: PropTypes.string.isRequired,
   departureDate: PropTypes.string.isRequired,

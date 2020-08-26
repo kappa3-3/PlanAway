@@ -29,9 +29,9 @@ function Navigation({ auth, currentTrip }) {
         {currentTrip
           ? (
             <li className="navigation-static">
-              CurrentTrip :
+              CurrentTrip:
               <span className="accent-color">
-                {currentTrip}
+                {` ${currentTrip}`}
               </span>
             </li>
           ) : ''}
