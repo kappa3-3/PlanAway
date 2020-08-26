@@ -59,7 +59,7 @@ const FetchedFlights = ({ data, auth }) => {
             ))}
           </div>
         ) : <StaticInfo msg="There are no flights that day." />}
-      {auth && data ? <ChosenFlights /> : ''}
+      {auth && Quotes.length > 0 ? <ChosenFlights /> : ''}
     </div>
   );
 };
