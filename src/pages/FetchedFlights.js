@@ -6,7 +6,7 @@ import StaticInfo from '../components/StaticInfo';
 import ChosenFlights from '../components/ChosenFlights';
 import './FetchedFlights.css';
 
-const FetchedFlights = ({ data }) => {
+const FetchedFlights = ({ data, auth }) => {
   const { Places, Quotes, Carriers } = data;
 
   function checkCarrierId(inFlight) {
@@ -59,17 +59,19 @@ const FetchedFlights = ({ data }) => {
             ))}
           </div>
         ) : <StaticInfo msg="There are no flights that day." />}
-      <ChosenFlights />
+      {auth ? <ChosenFlights /> : ''}
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   data: state.flightsData,
+  auth: state.isAuth,
 });
 
 FetchedFlights.propTypes = {
   data: PropTypes.objectOf().isRequired,
+  auth: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps)(FetchedFlights);
