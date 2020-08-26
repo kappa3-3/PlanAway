@@ -16,10 +16,8 @@ const tripsReducer = (state = {}, action) => {
         ...state,
         flights: [action.connection],
       });
-    case 'DELETE_CONNECTION':
-      return ({
-        ...state,
-      });
+    case 'CLEAR_CONNECTION':
+      return ({});
     default: return state;
   }
 };
