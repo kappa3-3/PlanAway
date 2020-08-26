@@ -64,6 +64,7 @@ MyPlanAway.propTypes = {
     PropTypes.object,
   ])).isRequired,
   id: PropTypes.string.isRequired,
+  updateUser: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, { updateUser: setUserData })(MyPlanAway);
