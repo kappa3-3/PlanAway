@@ -1,7 +1,9 @@
 # MyPlanAway :airplane:
 
 ![Recordit GIF](https://thumbs.gfycat.com/DampFirmBorderterrier-size_restricted.gif)
-<a href="[https://github.com/DodoMob](https://github.com/DodoMob)" target="_blank">Live Site</a>.
+
+[live site](https://github.com/DodoMob](https://github.com/DodoMob "Title").
+
 > MyPlanAway allows users to search for flights, create  trips, 
 > and get an overview of all their vacation plans in a yearly calendar.
 
@@ -24,10 +26,10 @@
 
 ## Workflow
 
-> Vertical Slicing
-> Mob Programming 
-> individual Programming
-> Agile (scrum)
+- Vertical Slicing
+- Mob Programming 
+- individual Programming
+- Agile (scrum)
 
 
 
