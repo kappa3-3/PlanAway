@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/Add';
 import dateFormatter from '../assets/functions/dateFormatter';
 import { setUserData } from '../actions/userData';
+import '../pages/FetchedFlights.css';
 
 const ChosenFlights = ({ trip, id, updateUser }) => {
   const [isSaved, setIsSaved] = useState(false);
@@ -25,6 +26,8 @@ const ChosenFlights = ({ trip, id, updateUser }) => {
 
   const saveToDatabase = (e, flight) => {
     e.preventDefault();
+    const button = e.target;
+    button.innerHTML = `SAVED TO ${trip.currentTrip.toUpperCase()}`
     fetch('/.netlify/functions/flights', {
       method: 'POST',
       body: JSON.stringify({
@@ -63,11 +66,10 @@ const ChosenFlights = ({ trip, id, updateUser }) => {
                 </p>
                 <button
                   type="button"
-                  className="saveTripButton"
+                  className="saveToDbButton"
                   disabled={isSaved}
                   onClick={(e) => saveToDatabase(e, flight)}
                 >
-                  {isSaved ? 'SAVED TO ' : ''}
                   {trip.currentTrip.toUpperCase()}
                   <AddIcon style={{ color: 'white' }} />
                 </button>
