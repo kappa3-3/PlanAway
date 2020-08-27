@@ -24,11 +24,20 @@ export default function SignUp() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch('/.netlify/functions/signup', {
+      method: 'POST',
+      body: JSON.stringify({ email, password, name, surname }),
+    }).then((res) => res.json())
+    .then((res) => console.log(res))
+  };
+
   const classes = useStyles();
   const user = [name, surname, email, password];
   return (
     <div className="auth-wrapper">
-      <form onSubmit={user} className={classes.root} noValidate autoComplete="off">
+      <form className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
             required
@@ -75,6 +84,7 @@ export default function SignUp() {
           variant="contained"
           color="secondary"
           className={classes.button}
+          onClick={(e) => handleSubmit(e)}
           endIcon={<FlightTakeOffIcon />}
         >
           Sign Up

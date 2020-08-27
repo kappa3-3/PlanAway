@@ -15,7 +15,7 @@ async function getData(user) {
     const result = await client
       .db('usersdb')
       .collection('users')
-      .findOne({ email_address: user.email, password: user.password });
+      .insertOne({ email_address: user.email, password: user.password, first_name: user.name, last_name: user.surname, vacation_days: 0, plans: [] });
     return result;
   } catch (err) {
     console.log(err);
@@ -26,20 +26,20 @@ async function getData(user) {
 exports.handler = async function (event, context) {
   try {
     const data = await getData(JSON.parse(event.body));
-    if ( data !== null) {
-      const {email_address, first_name, last_name, vacation_days, _id, plans} = data;
+    if (data !== null) {
+      const { email_address, first_name, last_name, _id } = data;
       return {
         statusCode: 200,
-        body: JSON.stringify({_id, email_address, first_name, last_name, vacation_days, plans })
+        body: JSON.stringify({ _id, email_address, first_name, last_name })
       };
     } else {
       return {
         statusCode: 200,
         body: JSON.stringify(data)
       };
-    }   
+    }
   } catch (err) {
-      console.log(err);
+    console.log(err);
     return {
       statusCode: 500,
       body: JSON.stringify({ msg: err.message })
