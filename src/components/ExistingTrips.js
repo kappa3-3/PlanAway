@@ -61,70 +61,72 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
   };
 
   return (
-    <FormControl
-      component="fieldset"
-      className="trip-form"
-    >
-      <FormLabel component="legend">
-        Select current trip:
-      </FormLabel>
-      <RadioGroup
-        aria-label="gender"
-        name="gender1"
-        onChange={handleChange}
+    <>
+      <FormControl
+        component="fieldset"
+        className="trip-form"
       >
-        {userData.plans.map((plan) => (
-          <FormControlLabel
-            key={plan.name}
-            value={plan.name}
-            control={<Radio />}
-            label={plan.name}
-          />
-        ))}
-      </RadioGroup>
-      {!isName
-        ? (
-          <FormControlLabel
-            onClick={() => setisName(true)}
-            control={<Radio />}
-            label="Add new trip"
-          />
-        ) : (
-          <>
-            <div className="new-trip">
-              <TextField
-                required
-                id="new-trip-name"
-                label="trip name"
-                onChange={(e) => handleTripName(e)}
-                variant="outlined"
-              />
-              <div className="buttons">
-                <button
-                  type="button"
-                  className="saveTripButton"
-                  disabled={Input.length === 0}
-                  onClick={(e) => handleNewTrip(e)}
-                >
-                  ADD TRIP
-                  <AddIcon style={{ color: 'white' }} />
-                </button>
-                <button
-                  type="button"
-                  className="goBackButton"
-                  onClick={() => handleGoBack()}
-                >
-                  GO BACK
-                  <KeyboardBackspaceRoundedIcon
-                    style={{ color: 'white' }}
-                  />
-                </button>
+        <FormLabel component="legend">
+          Select current trip:
+        </FormLabel>
+        <RadioGroup
+          aria-label="gender"
+          name="gender1"
+          onChange={handleChange}
+        >
+          {userData.plans.map((plan) => (
+            <FormControlLabel
+              key={plan.name}
+              value={plan.name}
+              control={<Radio />}
+              label={plan.name}
+            />
+          ))}
+        </RadioGroup>
+        {!isName
+          ? (
+            <FormControlLabel
+              onClick={() => setisName(true)}
+              control={<Radio />}
+              label="Add new trip"
+            />
+          ) : (
+            <>
+              <div className="new-trip">
+                <TextField
+                  required
+                  id="new-trip-name"
+                  label="trip name"
+                  onChange={(e) => handleTripName(e)}
+                  variant="outlined"
+                />
+                <div className="buttons">
+                  <button
+                    type="button"
+                    className="saveTripButton"
+                    disabled={Input.length === 0}
+                    onClick={(e) => handleNewTrip(e)}
+                  >
+                    ADD TRIP
+                    <AddIcon style={{ color: 'white' }} />
+                  </button>
+                  <button
+                    type="button"
+                    className="goBackButton"
+                    onClick={() => handleGoBack()}
+                  >
+                    GO BACK
+                    <KeyboardBackspaceRoundedIcon
+                      style={{ color: 'white' }}
+                    />
+                  </button>
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+      </FormControl>
       <span className={isSaved ? 'saved-in-db' : ''} />
-    </FormControl>
+    </>
   );
 };
 

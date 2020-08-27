@@ -13,6 +13,10 @@
   flex-direction: row-reverse;
 }
 
+.edit-icon {
+  margin-left: 95%;
+}
+
 .saveTripButton {
   margin-left: 5px;
 }

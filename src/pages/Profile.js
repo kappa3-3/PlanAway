@@ -31,7 +31,7 @@ function Profile({ userData, trip }) {
         ? (
           <form className={classes.root} noValidate autoComplete="off">
             <div className="Profile-wrapper">
-              <EditIcon style={{ color: '#E91E62' }} onClick={() => setEdit(true)} />
+              <EditIcon style={{ color: '#E91E62' }} className="edit-icon" onClick={() => setEdit(true)} />
               {edit
                 ? (
                   <>
@@ -50,7 +50,7 @@ function Profile({ userData, trip }) {
                   </>
                 )
                 : <ProfileInfo />}
-              <ExistingTrips userData={userData} />
+              {!edit ? <ExistingTrips userData={userData} /> : ''}
               {trip.currentTrip
                 ? (
                   <div className="search-btn">
