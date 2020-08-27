@@ -2,7 +2,7 @@
 
 ![Recordit GIF](https://thumbs.gfycat.com/DampFirmBorderterrier-size_restricted.gif)
 
-[live site](https://github.com/DodoMob](https://github.com/DodoMob "Title").
+[live site](https://github.com/DodoMob](https://github.com/DodoMob).
 
 > MyPlanAway allows users to search for flights, create  trips, 
 > and get an overview of all their vacation plans in a yearly calendar.
@@ -35,9 +35,10 @@
 
 ## Personal Githubs
 
-<a href="[https://github.com/kappa3-3](https://github.com/kappa3-3)" target="_blank">`Kasia Janiszewska`</a>
-<a href="[https://github.com/BiancaMunt](https://github.com/BiancaMunt)" target="_blank">`Bianca Munteanu`</a>
-<a href="[[https://github.com/TwanBox](https://github.com/TwanBox)](https://github.com/BiancaMunt)" target="_blank">`Twan Box`</a>
+[`Kasia Janiszewska`](https://github.com/kappa3-3](https://github.com/kappa3-3).
+[`Bianca Munteanu`](https://github.com/BiancaMunt](https://github.com/BiancaMunt).
+[`Twan Box`](https://github.com/TwanBox](https://github.com/TwanBox).
+
 
 ## License
 
