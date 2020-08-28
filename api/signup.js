@@ -12,11 +12,22 @@ async function getData(user) {
   });
   try {
     await client.connect();
-    const result = await client
+    const existingEmail = await client
       .db('usersdb')
       .collection('users')
-      .insertOne({ email_address: user.email, password: user.password, first_name: user.name, last_name: user.surname, vacation_days: 0, plans: [] });
-    return result;
+      .findOne({ email_address: user.email })
+
+    if (existingEmail == null) {
+      await client.connect();
+      const result = await client
+        .db('usersdb')
+        .collection('users')
+        .insertOne({ email_address: user.email, password: user.password, first_name: user.name, last_name: user.surname, vacation_days: 0, plans: [] });
+      console.log(result);  
+      return result.ops[0];
+    } else {
+      return null;
+    }
   } catch (err) {
     console.log(err);
     await client.close();
