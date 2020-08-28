@@ -22,7 +22,20 @@
   display: flex;
 }
 
-.saveTripButton {
+.saveToDbButton {
   margin: auto;
   margin-bottom: 100px;
+  padding: 5px;
+  display: flex;
+  height: fit-content;
+  align-items: center;
+  background-color:#f50057;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 80%;
+}
+
+.saveToDbButton:disabled {
+  background-color: #b7b7b7;
 }
