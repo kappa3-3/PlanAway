@@ -18,10 +18,10 @@ function MyPlanAway({
         {auth
           ? (
             <div className="flex">
-              {[...new Array(12)].map((m, i) => (
+              {[...Array(12).keys()].map((m) => (
                 <CalendarView
-                  key={m}
-                  month={new Date(2020, i, 1)}
+                  key={`month-${m}`}
+                  month={new Date(2020, m, 1)}
                   tripDates={tripDates}
                 />
               ))}
