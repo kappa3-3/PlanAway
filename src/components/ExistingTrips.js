@@ -67,21 +67,23 @@ const ExistingTrips = ({ userData, setCurrentTrip, updateUser }) => {
         className="trip-form"
       >
         <FormLabel component="legend">
-          Select current trip:
+          <h3 className="current-trips">Select current trip:</h3>
         </FormLabel>
         <RadioGroup
           aria-label="gender"
           name="gender1"
           onChange={handleChange}
         >
-          {userData.plans.map((plan) => (
-            <FormControlLabel
-              key={plan.name}
-              value={plan.name}
-              control={<Radio />}
-              label={plan.name}
-            />
-          ))}
+          {userData.plans.length > 0
+            ? userData.plans.map((plan) => (
+              <FormControlLabel
+                key={plan.name}
+                value={plan.name}
+                control={<Radio />}
+                label={plan.name}
+              />
+            ))
+            : <span className="no-trips">No existing trips to display</span>}
         </RadioGroup>
         {!isName
           ? (

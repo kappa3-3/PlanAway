@@ -27,7 +27,7 @@ const ChosenFlights = ({ trip, id, updateUser }) => {
   const saveToDatabase = (e, flight) => {
     e.preventDefault();
     const button = e.target;
-    button.innerHTML = `SAVED TO ${trip.currentTrip.toUpperCase()}`
+    button.innerHTML = `SAVED TO ${trip.currentTrip.toUpperCase()}`;
     fetch('/.netlify/functions/flights', {
       method: 'POST',
       body: JSON.stringify({

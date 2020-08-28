@@ -62,3 +62,12 @@
   left: 0;
   border: 2px solid #C51162;
 }
+
+.no-trips {
+  padding: 10px 0;
+  color: #C51162;
+}
+
+.current-trips {
+  color: rgb(23, 22, 22);
+}
