@@ -2,7 +2,7 @@
 
 ![Recordit GIF](https://thumbs.gfycat.com/DampFirmBorderterrier-size_restricted.gif)
 
-[live site](https://github.com/DodoMob](https://github.com/DodoMob "live site").
+[live site](https://planaway.netlify.app/ "live site").
 
 > MyPlanAway allows users to search for flights, create  trips, 
 > and get an overview of all their vacation plans in a yearly calendar.
